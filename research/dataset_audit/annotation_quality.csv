@@ -1,0 +1,4 @@
+split,images,images_with_no_valid_objects,images_with_missing_or_empty_label,malformed_lines,invalid_class_ids,invalid_coordinates,zero_area_boxes,boundary_clipped_boxes,total_valid_objects
+train,6515,0,0,0,0,0,0,150,14305
+val,1430,0,0,0,0,0,0,29,3071
+test,1405,0,0,0,0,0,0,29,3095

@@ -1,0 +1,22 @@
+{
+  "run": "E20_dinov2_vitb14reg_sfp_frcnn_v5",
+  "dataset": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "epochs_trained": 12,
+  "best_epoch": 12,
+  "eval_size": 1280,
+  "recipe": {
+    "backbone": "vit_base_patch14_reg4_dinov2.lvd142m",
+    "layer_decay": 0.75,
+    "use_cascade": false,
+    "high_res": false,
+    "copy_paste": false,
+    "degrade_aug": false,
+    "rpn_batch": 256,
+    "init_from_e15": false
+  },
+  "best_val_AP50": 0.6366648446305999,
+  "test_AP50": 0.6476329537867396,
+  "train_images": 6515,
+  "hours": 6.93
+}

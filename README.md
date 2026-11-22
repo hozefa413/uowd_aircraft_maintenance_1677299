@@ -1,5 +1,10 @@
 # AeroTrust Showcase — React + FastAPI for Databricks Apps
 
+See [`research/`](research/README.md) for the real MLflow pyfunc adapter source
+code behind every served model, dataset-quality audit evidence, and
+per-experiment training configs/metrics. See [`databricks/`](databricks/README.md)
+for the Model Serving endpoint inventory and the Serverless GPU training job.
+
 ## What this delivers
 A research-journey showcase with:
 - Executive command center and project evidence/status

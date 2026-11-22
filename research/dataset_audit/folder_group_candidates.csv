@@ -1,0 +1,4 @@
+split,group_folder_candidate,images
+test,.,1405
+train,.,6515
+val,.,1430

@@ -1,0 +1,20 @@
+{
+  "run": "E18_frcnn_r101_v5_plus",
+  "dataset": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "epochs_trained": 12,
+  "best_epoch": 12,
+  "eval_size": 1280,
+  "recipe": {
+    "use_cascade": false,
+    "high_res": true,
+    "copy_paste": true,
+    "degrade_aug": true,
+    "rpn_batch": 512,
+    "init_from_e15": false
+  },
+  "best_val_AP50": 0.5832594129130463,
+  "test_AP50": 0.5862165972613402,
+  "train_images": 6515,
+  "hours": 3.08
+}

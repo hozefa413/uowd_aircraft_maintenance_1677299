@@ -1,0 +1,12 @@
+{
+  "run": "E17_cascade_rcnn_r101_v5",
+  "dataset": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "epochs_trained": 25,
+  "extended_from_epoch": 12,
+  "best_epoch": 22,
+  "best_val_AP50": 0.6087499372023225,
+  "test_AP50": 0.6106545448309483,
+  "train_images": 6515,
+  "hours": 4.0
+}

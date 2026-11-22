@@ -1,0 +1,38 @@
+{
+  "experiment": "E4_YOLO11s_Small_Object_Optimisation",
+  "timestamp": "20261114_084016",
+  "model": "yolo11s.pt",
+  "dataset": "Aircraft Defect Detection A+B",
+  "classes": {
+    "0": "Crack",
+    "1": "Dent",
+    "2": "Fastener Damage",
+    "3": "Missing rivet",
+    "4": "Paint-off",
+    "5": "Rupture"
+  },
+  "original_train_images": 8446,
+  "expanded_train_manifest_images": 13706,
+  "validation_images": 1335,
+  "image_size": 1024,
+  "batch_size": 8,
+  "epochs": 80,
+  "patience": 20,
+  "optimizer": "AdamW",
+  "learning_rate": 0.001,
+  "weight_decay": 0.0005,
+  "small_object_area_threshold": 0.01,
+  "small_object_multiplier": 1.5,
+  "priority_class_weights": {
+    "0": 1.5,
+    "1": 1.0,
+    "2": 3.0,
+    "3": 3.5,
+    "4": 1.3,
+    "5": 1.5
+  },
+  "maximum_image_repeats": 4,
+  "maximum_training_expansion": 2.0,
+  "seed": 42,
+  "device": "0"
+}

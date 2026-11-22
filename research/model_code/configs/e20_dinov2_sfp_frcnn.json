@@ -1,0 +1,50 @@
+{
+  "num_classes": 7,
+  "class_names": [
+    "Crack",
+    "Dent",
+    "Fastener Damage",
+    "Missing rivet",
+    "Paint-off",
+    "Rupture"
+  ],
+  "anchor_sizes": [
+    [
+      8,
+      16
+    ],
+    [
+      24,
+      32
+    ],
+    [
+      48,
+      64
+    ],
+    [
+      96,
+      128
+    ],
+    [
+      192,
+      384
+    ]
+  ],
+  "image_size": 1280,
+  "size_divisible": 32,
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "box_nms_thresh": 0.5,
+  "max_det": 300,
+  "default_score_threshold": 0.8,
+  "source_checkpoint_sha256": "6c3d2e10a289bc29673e72ecea1c99c4fd883d780e4f30bd91a479148fa3342b",
+  "timm_name": "vit_base_patch14_reg4_dinov2.lvd142m"
+}

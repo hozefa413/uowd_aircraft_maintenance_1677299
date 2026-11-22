@@ -1,0 +1,33 @@
+{
+  "run": "E22_dinov3_vitb16_sfp_frcnn_v5",
+  "dataset": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "epochs_trained": 12,
+  "best_epoch": 12,
+  "eval_size": 1280,
+  "recipe": {
+    "backbone": "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m",
+    "patch_size": 16,
+    "prefix_tokens": 5,
+    "feature_channels": 256,
+    "layer_decay": 0.75,
+    "drop_path": 0.1,
+    "grad_checkpointing": true,
+    "copy_paste": false,
+    "degrade_aug": false,
+    "rpn_batch": 256,
+    "train_sizes": [
+      896,
+      960,
+      1024,
+      1088,
+      1152
+    ],
+    "effective_batch": 4
+  },
+  "best_val_AP50": 0.6390604463816077,
+  "selected_resolution_val_AP50": 0.6457163745868385,
+  "train_images": 6515,
+  "val_images": 1430,
+  "hours": 5.98
+}

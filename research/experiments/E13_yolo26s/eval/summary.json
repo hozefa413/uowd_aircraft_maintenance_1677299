@@ -1,0 +1,114 @@
+{
+  "run": "E13_yolo26s_1280_aerotrust_v5_resplit",
+  "dataset": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "arch": "yolo26s",
+  "imgsz": 1280,
+  "epochs_requested": 40,
+  "train_hours": 0.0,
+  "chosen_mode_on_val": "full + slices <0.10%",
+  "val_AP50": {
+    "full": 0.529,
+    "full + slices <0.10%": 0.5525
+  },
+  "test_AP50": {
+    "full": 0.5033,
+    "full + slices <0.10%": 0.5313
+  },
+  "test_by_bin": [
+    {
+      "bin": "all",
+      "full": 0.5033,
+      "full_lo": 0.4802,
+      "full_hi": 0.5345,
+      "chosen": 0.5313,
+      "chosen_lo": 0.5089,
+      "chosen_hi": 0.562,
+      "slicing_delta": 0.028,
+      "delta_lo": 0.0205,
+      "delta_hi": 0.0351,
+      "slicing_significant": true
+    },
+    {
+      "bin": "<0.1%",
+      "full": 0.2494,
+      "full_lo": 0.1986,
+      "full_hi": 0.3295,
+      "chosen": 0.2158,
+      "chosen_lo": 0.1717,
+      "chosen_hi": 0.2876,
+      "slicing_delta": -0.0336,
+      "delta_lo": -0.0636,
+      "delta_hi": -0.0062,
+      "slicing_significant": true
+    },
+    {
+      "bin": "0.1-0.25%",
+      "full": 0.4288,
+      "full_lo": 0.3781,
+      "full_hi": 0.5061,
+      "chosen": 0.4768,
+      "chosen_lo": 0.421,
+      "chosen_hi": 0.5551,
+      "slicing_delta": 0.048,
+      "delta_lo": 0.027,
+      "delta_hi": 0.0651,
+      "slicing_significant": true
+    },
+    {
+      "bin": "0.25-1%",
+      "full": 0.5429,
+      "full_lo": 0.499,
+      "full_hi": 0.5988,
+      "chosen": 0.5991,
+      "chosen_lo": 0.5511,
+      "chosen_hi": 0.6556,
+      "slicing_delta": 0.0562,
+      "delta_lo": 0.0444,
+      "delta_hi": 0.0682,
+      "slicing_significant": true
+    },
+    {
+      "bin": ">=1%",
+      "full": 0.5372,
+      "full_lo": 0.5118,
+      "full_hi": 0.5806,
+      "chosen": 0.5737,
+      "chosen_lo": 0.5481,
+      "chosen_hi": 0.6179,
+      "slicing_delta": 0.0365,
+      "delta_lo": 0.0301,
+      "delta_hi": 0.0435,
+      "slicing_significant": true
+    }
+  ],
+  "ultralytics": [
+    {
+      "split": "val",
+      "P": 0.6026,
+      "R": 0.5315,
+      "mAP50": 0.5389,
+      "mAP50_95": 0.2882,
+      "AP50_Crack": 0.4214,
+      "AP50_Dent": 0.7556,
+      "AP50_Fastener Damage": 0.73,
+      "AP50_Missing rivet": 0.2767,
+      "AP50_Paint-off": 0.4483,
+      "AP50_Rupture": 0.601
+    },
+    {
+      "split": "test",
+      "P": 0.5372,
+      "R": 0.514,
+      "mAP50": 0.4999,
+      "mAP50_95": 0.2738,
+      "AP50_Crack": 0.3924,
+      "AP50_Dent": 0.7605,
+      "AP50_Fastener Damage": 0.6261,
+      "AP50_Missing rivet": 0.2184,
+      "AP50_Paint-off": 0.4324,
+      "AP50_Rupture": 0.5695
+    }
+  ],
+  "total_hours": 0.15
+}

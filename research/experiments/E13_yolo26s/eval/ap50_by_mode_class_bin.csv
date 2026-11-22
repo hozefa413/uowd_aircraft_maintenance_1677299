@@ -1,0 +1,211 @@
+split,mode,cls,bin,AP50
+val,full,mAP,all,0.5290471444577757
+val,full,Crack,all,0.41769866756985075
+val,full,Dent,all,0.7365177634388461
+val,full,Fastener Damage,all,0.6918411550399777
+val,full,Missing rivet,all,0.28328158303871326
+val,full,Paint-off,all,0.4466489536025054
+val,full,Rupture,all,0.5982947440567601
+val,full,mAP,<0.1%,0.2658552046970895
+val,full,Crack,<0.1%,0.38372196738912956
+val,full,Dent,<0.1%,0.019295142238544127
+val,full,Fastener Damage,<0.1%,0.5034323095073712
+val,full,Missing rivet,<0.1%,0.258440217291023
+val,full,Paint-off,<0.1%,0.20834623530918314
+val,full,Rupture,<0.1%,0.22189535644728578
+val,full,mAP,0.1-0.25%,0.4256195185879847
+val,full,Crack,0.1-0.25%,0.6668759327788869
+val,full,Dent,0.1-0.25%,0.18937897734336334
+val,full,Fastener Damage,0.1-0.25%,0.6578761133266332
+val,full,Missing rivet,0.1-0.25%,0.3361042263031687
+val,full,Paint-off,0.1-0.25%,0.4254500906467172
+val,full,Rupture,0.1-0.25%,0.27803177112913835
+val,full,mAP,0.25-1%,0.536360510690988
+val,full,Crack,0.25-1%,0.49389275232548685
+val,full,Dent,0.25-1%,0.4813124492198077
+val,full,Fastener Damage,0.25-1%,0.8116674305677851
+val,full,Missing rivet,0.25-1%,0.36929947061141755
+val,full,Paint-off,0.25-1%,0.4988379866829087
+val,full,Rupture,0.25-1%,0.5631529747385222
+val,full,mAP,>=1%,0.5619674973089269
+val,full,Crack,>=1%,0.32548724762799763
+val,full,Dent,>=1%,0.815764849117795
+val,full,Fastener Damage,>=1%,0.7802221541530121
+val,full,Missing rivet,>=1%,0.2437834404556118
+val,full,Paint-off,>=1%,0.5386112315244325
+val,full,Rupture,>=1%,0.6679360609747127
+val,full + slices <0.10%,mAP,all,0.5524844451714571
+val,full + slices <0.10%,Crack,all,0.44789761097894665
+val,full + slices <0.10%,Dent,all,0.7586722773758564
+val,full + slices <0.10%,Fastener Damage,all,0.6967477511673518
+val,full + slices <0.10%,Missing rivet,all,0.309744692485739
+val,full + slices <0.10%,Paint-off,all,0.474548220051033
+val,full + slices <0.10%,Rupture,all,0.6272961189698161
+val,full + slices <0.10%,mAP,<0.1%,0.23927716599830748
+val,full + slices <0.10%,Crack,<0.1%,0.4534109671611662
+val,full + slices <0.10%,Dent,<0.1%,0.01613690593812515
+val,full + slices <0.10%,Fastener Damage,<0.1%,0.3869532092083459
+val,full + slices <0.10%,Missing rivet,<0.1%,0.27631021172875225
+val,full + slices <0.10%,Paint-off,<0.1%,0.15986832252538716
+val,full + slices <0.10%,Rupture,<0.1%,0.14298337942806802
+val,full + slices <0.10%,mAP,0.1-0.25%,0.4630152218880234
+val,full + slices <0.10%,Crack,0.1-0.25%,0.6718077459936107
+val,full + slices <0.10%,Dent,0.1-0.25%,0.19529230342818596
+val,full + slices <0.10%,Fastener Damage,0.1-0.25%,0.7440654019053148
+val,full + slices <0.10%,Missing rivet,0.1-0.25%,0.396110727076828
+val,full + slices <0.10%,Paint-off,0.1-0.25%,0.4640626927102806
+val,full + slices <0.10%,Rupture,0.1-0.25%,0.30675246021392066
+val,full + slices <0.10%,mAP,0.25-1%,0.5787210922351772
+val,full + slices <0.10%,Crack,0.25-1%,0.5379688111797738
+val,full + slices <0.10%,Dent,0.25-1%,0.51541540045419
+val,full + slices <0.10%,Fastener Damage,0.25-1%,0.8319787316759808
+val,full + slices <0.10%,Missing rivet,0.25-1%,0.4239702524210908
+val,full + slices <0.10%,Paint-off,0.25-1%,0.5606258537157345
+val,full + slices <0.10%,Rupture,0.25-1%,0.6023675039642931
+val,full + slices <0.10%,mAP,>=1%,0.601246738406085
+val,full + slices <0.10%,Crack,>=1%,0.37609779698038176
+val,full + slices <0.10%,Dent,>=1%,0.8501150474388857
+val,full + slices <0.10%,Fastener Damage,>=1%,0.7945154694039764
+val,full + slices <0.10%,Missing rivet,>=1%,0.2978496745550805
+val,full + slices <0.10%,Paint-off,>=1%,0.5875387240471243
+val,full + slices <0.10%,Rupture,>=1%,0.7013637180110617
+val,full + slices <0.25%,mAP,all,0.5444761219262692
+val,full + slices <0.25%,Crack,all,0.4313354375903661
+val,full + slices <0.25%,Dent,all,0.7493422505813047
+val,full + slices <0.25%,Fastener Damage,all,0.6827807927725117
+val,full + slices <0.25%,Missing rivet,all,0.31419143196512656
+val,full + slices <0.25%,Paint-off,all,0.46635263368924196
+val,full + slices <0.25%,Rupture,all,0.6228541849590645
+val,full + slices <0.25%,mAP,<0.1%,0.2463993951734996
+val,full + slices <0.25%,Crack,<0.1%,0.453887756611436
+val,full + slices <0.25%,Dent,<0.1%,0.020034694546957846
+val,full + slices <0.25%,Fastener Damage,<0.1%,0.41525627314730207
+val,full + slices <0.25%,Missing rivet,<0.1%,0.28008972948297756
+val,full + slices <0.25%,Paint-off,<0.1%,0.1604724439682126
+val,full + slices <0.25%,Rupture,<0.1%,0.1486554732841115
+val,full + slices <0.25%,mAP,0.1-0.25%,0.36849508100006223
+val,full + slices <0.25%,Crack,0.1-0.25%,0.6098657477917349
+val,full + slices <0.25%,Dent,0.1-0.25%,0.09635470149392818
+val,full + slices <0.25%,Fastener Damage,0.1-0.25%,0.4712179395349826
+val,full + slices <0.25%,Missing rivet,0.1-0.25%,0.3632335492445965
+val,full + slices <0.25%,Paint-off,0.1-0.25%,0.3983381172453288
+val,full + slices <0.25%,Rupture,0.1-0.25%,0.2719604306898023
+val,full + slices <0.25%,mAP,0.25-1%,0.5838780677405212
+val,full + slices <0.25%,Crack,0.25-1%,0.53940450079579
+val,full + slices <0.25%,Dent,0.25-1%,0.5009467662234632
+val,full + slices <0.25%,Fastener Damage,0.25-1%,0.8362294671168051
+val,full + slices <0.25%,Missing rivet,0.25-1%,0.44819623281957216
+val,full + slices <0.25%,Paint-off,0.25-1%,0.5664856336187867
+val,full + slices <0.25%,Rupture,0.25-1%,0.6120058058687098
+val,full + slices <0.25%,mAP,>=1%,0.6012461448356657
+val,full + slices <0.25%,Crack,>=1%,0.37609779698038176
+val,full + slices <0.25%,Dent,>=1%,0.8501098034642616
+val,full + slices <0.25%,Fastener Damage,>=1%,0.7945154694039764
+val,full + slices <0.25%,Missing rivet,>=1%,0.2978496745550805
+val,full + slices <0.25%,Paint-off,>=1%,0.5875387240471243
+val,full + slices <0.25%,Rupture,>=1%,0.7013654005631695
+test,full,mAP,all,0.5033078763230353
+test,full,Crack,all,0.4018968081870037
+test,full,Dent,all,0.7482578888080744
+test,full,Fastener Damage,all,0.6279639530468988
+test,full,Missing rivet,all,0.2352994189743007
+test,full,Paint-off,all,0.4345625693352059
+test,full,Rupture,all,0.5718666195867282
+test,full,mAP,<0.1%,0.24944251844847262
+test,full,Crack,<0.1%,0.1734006253146265
+test,full,Dent,<0.1%,0.1760571811096661
+test,full,Fastener Damage,<0.1%,0.4895582598313853
+test,full,Missing rivet,<0.1%,0.20113970506320078
+test,full,Paint-off,<0.1%,0.2543811475150972
+test,full,Rupture,<0.1%,0.20211819185686006
+test,full,mAP,0.1-0.25%,0.4287620538175901
+test,full,Crack,0.1-0.25%,0.6443490278161335
+test,full,Dent,0.1-0.25%,0.09062009828077001
+test,full,Fastener Damage,0.1-0.25%,0.6761915298460472
+test,full,Missing rivet,0.1-0.25%,0.236872289165122
+test,full,Paint-off,0.1-0.25%,0.48605528846501667
+test,full,Rupture,0.1-0.25%,0.43848408933245087
+test,full,mAP,0.25-1%,0.5428805539003283
+test,full,Crack,0.25-1%,0.4738685775113618
+test,full,Dent,0.25-1%,0.49240536367423954
+test,full,Fastener Damage,0.25-1%,0.8109818054171486
+test,full,Missing rivet,0.25-1%,0.41756684908442726
+test,full,Paint-off,0.25-1%,0.4421208538306056
+test,full,Rupture,0.25-1%,0.6203398738841872
+test,full,mAP,>=1%,0.5372411831009936
+test,full,Crack,>=1%,0.32853313293702535
+test,full,Dent,>=1%,0.8193338574698718
+test,full,Fastener Damage,>=1%,0.6740458214866291
+test,full,Missing rivet,>=1%,0.2739171654719322
+test,full,Paint-off,>=1%,0.5205561119354378
+test,full,Rupture,>=1%,0.6070610093050655
+test,full + slices <0.10%,mAP,all,0.5312929849125207
+test,full + slices <0.10%,Crack,all,0.4267012124402933
+test,full + slices <0.10%,Dent,all,0.7638760280732177
+test,full + slices <0.10%,Fastener Damage,all,0.6586991474573488
+test,full + slices <0.10%,Missing rivet,all,0.2500157748227116
+test,full + slices <0.10%,Paint-off,all,0.48233403493908855
+test,full + slices <0.10%,Rupture,all,0.6061317117424639
+test,full + slices <0.10%,mAP,<0.1%,0.21583728019007595
+test,full + slices <0.10%,Crack,<0.1%,0.09101869665799645
+test,full + slices <0.10%,Dent,<0.1%,0.1503785603419867
+test,full + slices <0.10%,Fastener Damage,<0.1%,0.4667437731741985
+test,full + slices <0.10%,Missing rivet,<0.1%,0.20435079069168854
+test,full + slices <0.10%,Paint-off,<0.1%,0.2524740846724263
+test,full + slices <0.10%,Rupture,<0.1%,0.13005777560215914
+test,full + slices <0.10%,mAP,0.1-0.25%,0.4767741822895591
+test,full + slices <0.10%,Crack,0.1-0.25%,0.6776504200285259
+test,full + slices <0.10%,Dent,0.1-0.25%,0.12156905664242844
+test,full + slices <0.10%,Fastener Damage,0.1-0.25%,0.7743673144366954
+test,full + slices <0.10%,Missing rivet,0.1-0.25%,0.26879669261015815
+test,full + slices <0.10%,Paint-off,0.1-0.25%,0.5121799916113069
+test,full + slices <0.10%,Rupture,0.1-0.25%,0.5060816184082395
+test,full + slices <0.10%,mAP,0.25-1%,0.5990802377558804
+test,full + slices <0.10%,Crack,0.25-1%,0.5277778952975677
+test,full + slices <0.10%,Dent,0.25-1%,0.5357467672563037
+test,full + slices <0.10%,Fastener Damage,0.25-1%,0.8384228874154672
+test,full + slices <0.10%,Missing rivet,0.25-1%,0.47199039917907387
+test,full + slices <0.10%,Paint-off,0.25-1%,0.5189247928989337
+test,full + slices <0.10%,Rupture,0.25-1%,0.7016186844879359
+test,full + slices <0.10%,mAP,>=1%,0.5736947696008232
+test,full + slices <0.10%,Crack,>=1%,0.3768395459990226
+test,full + slices <0.10%,Dent,>=1%,0.8440904604605415
+test,full + slices <0.10%,Fastener Damage,>=1%,0.6906566816372157
+test,full + slices <0.10%,Missing rivet,>=1%,0.31856599964477056
+test,full + slices <0.10%,Paint-off,>=1%,0.5734707478027549
+test,full + slices <0.10%,Rupture,>=1%,0.6385451820606345
+test,full + slices <0.25%,mAP,all,0.5213447484748625
+test,full + slices <0.25%,Crack,all,0.41707021286463863
+test,full + slices <0.25%,Dent,all,0.7555667236511494
+test,full + slices <0.25%,Fastener Damage,all,0.6414174802176382
+test,full + slices <0.25%,Missing rivet,all,0.24591066650013718
+test,full + slices <0.25%,Paint-off,all,0.46835726415831636
+test,full + slices <0.25%,Rupture,all,0.599746143457295
+test,full + slices <0.25%,mAP,<0.1%,0.22580102901990173
+test,full + slices <0.25%,Crack,<0.1%,0.09291998623010567
+test,full + slices <0.25%,Dent,<0.1%,0.18951091841492576
+test,full + slices <0.25%,Fastener Damage,<0.1%,0.4758158718240348
+test,full + slices <0.25%,Missing rivet,<0.1%,0.20673713128178126
+test,full + slices <0.25%,Paint-off,<0.1%,0.25887776974994653
+test,full + slices <0.25%,Rupture,<0.1%,0.13094449661861637
+test,full + slices <0.25%,mAP,0.1-0.25%,0.39601345888645473
+test,full + slices <0.25%,Crack,0.1-0.25%,0.6466401879048641
+test,full + slices <0.25%,Dent,0.1-0.25%,0.11466537061317125
+test,full + slices <0.25%,Fastener Damage,0.1-0.25%,0.532092642906755
+test,full + slices <0.25%,Missing rivet,0.1-0.25%,0.21164482947940916
+test,full + slices <0.25%,Paint-off,0.1-0.25%,0.3908480384258237
+test,full + slices <0.25%,Rupture,0.1-0.25%,0.4801896839887052
+test,full + slices <0.25%,mAP,0.25-1%,0.5991288617739046
+test,full + slices <0.25%,Crack,0.25-1%,0.5294007593689981
+test,full + slices <0.25%,Dent,0.25-1%,0.5308307990745259
+test,full + slices <0.25%,Fastener Damage,0.25-1%,0.8421978261804529
+test,full + slices <0.25%,Missing rivet,0.25-1%,0.4663830366568642
+test,full + slices <0.25%,Paint-off,0.25-1%,0.5118629934466935
+test,full + slices <0.25%,Rupture,0.25-1%,0.7140977559158929
+test,full + slices <0.25%,mAP,>=1%,0.5736949796172638
+test,full + slices <0.25%,Crack,>=1%,0.3768408060976659
+test,full + slices <0.25%,Dent,>=1%,0.8440904604605415
+test,full + slices <0.25%,Fastener Damage,>=1%,0.6906566816372157
+test,full + slices <0.25%,Missing rivet,>=1%,0.31856599964477056
+test,full + slices <0.25%,Paint-off,>=1%,0.5734707478027549
+test,full + slices <0.25%,Rupture,>=1%,0.6385451820606345

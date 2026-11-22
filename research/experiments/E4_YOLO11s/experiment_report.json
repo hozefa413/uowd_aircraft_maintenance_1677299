@@ -1,0 +1,38 @@
+{
+  "experiment": "E4_YOLO11s_Small_Object_Optimisation",
+  "timestamp": "20261114_084016",
+  "model": "yolo11s.pt",
+  "training_images_original": 8446,
+  "training_manifest_images": 13706,
+  "validation_images": 1335,
+  "epochs_configured": 80,
+  "training_time_seconds": 22277.949775457382,
+  "training_time_hours": 6.188319382071495,
+  "best_checkpoint": "/Workspace/Users/hmk797@uowmail.edu.au/901 - DL Final Project Research work/Exploratory data analysis/Model Development/Full_Dataset_Experiments/E2_AB_Six_Class/E4_YOLO11s_Small_Object_Optimisation/run_20261114_084016/training/weights/best.pt",
+  "last_checkpoint": "/Workspace/Users/hmk797@uowmail.edu.au/901 - DL Final Project Research work/Exploratory data analysis/Model Development/Full_Dataset_Experiments/E2_AB_Six_Class/E4_YOLO11s_Small_Object_Optimisation/run_20261114_084016/training/weights/last.pt",
+  "validation_metrics": {
+    "metrics/precision(B)": 0.5223752875781885,
+    "metrics/recall(B)": 0.4925726702182463,
+    "metrics/mAP50(B)": 0.42620537285579224,
+    "metrics/mAP50-95(B)": 0.23346732106323398,
+    "fitness": 0.23346732106323398
+  },
+  "class_names": {
+    "0": "Crack",
+    "1": "Dent",
+    "2": "Fastener Damage",
+    "3": "Missing rivet",
+    "4": "Paint-off",
+    "5": "Rupture"
+  },
+  "small_object_threshold": 0.01,
+  "priority_class_weights": {
+    "0": 1.5,
+    "1": 1.0,
+    "2": 3.0,
+    "3": 3.5,
+    "4": 1.3,
+    "5": 1.5
+  },
+  "note": "Validation only. Test split was not evaluated. Training manifest oversamples images containing priority classes and small bounding boxes. Repeated images remain within the original training split."
+}

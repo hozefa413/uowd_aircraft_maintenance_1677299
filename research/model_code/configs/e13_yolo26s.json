@@ -1,0 +1,27 @@
+{
+  "experiment": "E13_YOLO26s",
+  "architecture": "YOLO26s",
+  "family": "YOLO",
+  "class_names": [
+    "Crack",
+    "Dent",
+    "Fastener Damage",
+    "Missing rivet",
+    "Paint-off",
+    "Rupture"
+  ],
+  "dataset_version": "aerotrust_v5_resplit",
+  "test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+  "seed": 42,
+  "image_size": 1280,
+  "inference_strategy": "full_image",
+  "metrics": {
+    "ap50": 0.5033,
+    "tiny_ap50": 0.2494
+  },
+  "checkpoint_sha256": "c87f00b12173fe58a8a11010f7dcc29cee5a669b74c45ede3f0c066cc05dce8b",
+  "factory": null,
+  "confidence_threshold": 0.001,
+  "nms_iou": 0.7,
+  "registered_at": "2026-11-21T06:01:31.487776+00:00"
+}

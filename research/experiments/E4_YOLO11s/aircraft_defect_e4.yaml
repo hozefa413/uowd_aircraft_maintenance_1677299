@@ -1,0 +1,13 @@
+path: /Workspace/Users/hmk797@uowmail.edu.au/901 - DL Final Project Research work/Exploratory
+  data analysis/Model Development/Full_Dataset_Experiments/E2_AB_Six_Class/run_20261114T060548Z/yolo_dataset
+train: /Workspace/Users/hmk797@uowmail.edu.au/901 - DL Final Project Research work/Exploratory
+  data analysis/Model Development/Full_Dataset_Experiments/E2_AB_Six_Class/E4_YOLO11s_Small_Object_Optimisation/run_20261114_084016/train_oversampled_manifest.txt
+val: images/valid
+test: images/test
+names:
+  0: Crack
+  1: Dent
+  2: Fastener Damage
+  3: Missing rivet
+  4: Paint-off
+  5: Rupture

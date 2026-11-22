@@ -1,0 +1,19 @@
+split,class_id,class_name,instances,images_containing_class
+train,0,Crack,1273,807
+train,1,Dent,3888,2471
+train,2,Fastener Damage,2395,1048
+train,3,Missing rivet,3234,768
+train,4,Paint-off,1129,590
+train,5,Rupture,2386,1812
+val,0,Crack,273,176
+val,1,Dent,830,528
+val,2,Fastener Damage,519,233
+val,3,Missing rivet,697,165
+val,4,Paint-off,242,129
+val,5,Rupture,510,390
+test,0,Crack,281,188
+test,1,Dent,835,542
+test,2,Fastener Damage,511,206
+test,3,Missing rivet,717,162
+test,4,Paint-off,239,123
+test,5,Rupture,512,386
