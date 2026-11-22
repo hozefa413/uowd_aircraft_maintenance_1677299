@@ -1,0 +1,74 @@
+{
+  "project": "AeroTrust — Aircraft Defect Intelligence",
+  "source_of_record": "/Workspace/Users/hozefamustan.kanchwala@databricks.com/aerotrust",
+  "milestones": [
+    {
+      "phase": "01",
+      "title": "Data foundation & lineage",
+      "status": "done",
+      "summary": "Three dataset milestones tracked (v1 consolidated inventory, v2 E7 six-class YOLO bundle, v5 locked audited baseline). v5 holds 9,350 images / 20,471 annotations across six defect classes, with a SHA-256 locked test fingerprint.",
+      "evidence": ["dataset_audit/audit_summary.json", "dataset_audit/audit_conclusion.md"]
+    },
+    {
+      "phase": "02",
+      "title": "Experiment campaign",
+      "status": "done",
+      "summary": "11 tracked model configurations spanning YOLO (YOLO11n, YOLO11s, YOLO26s x2 seeds), two-stage detectors (Faster R-CNN R50/R101 x3 variants, Cascade R-CNN R101) and transformer-backed two-stage detectors (DINOv2/DINOv3 + SFP + Faster R-CNN).",
+      "evidence": ["E4_YOLO11s_Small_Object_Optimisation", "E13_yolo26s_1280_aerotrust_v5_resplit", "E15_frcnn_r101_v5", "E17_cascade_rcnn_r101_v5", "E19_yolo26s_1280_aerotrust_v5_resplit_seed7", "E20_dinov2_vitb14reg_sfp_frcnn_v5", "E21A_fasterrcnn_resnet50_v5", "E21B_fasterrcnn_resnet101_v5", "E22_dinov3_vitb16_sfp_frcnn_v5"]
+    },
+    {
+      "phase": "03",
+      "title": "Shared evaluation & comparison",
+      "status": "done",
+      "summary": "E15/E17/E20 compared under a shared evaluator. E20 (DINOv2 + SFP + Faster R-CNN) reports the best overall AP50 at 64.76%, but its tiny-object AP50 lead over E15 is only +0.11pp — a paired bootstrap on v5 confirms the overall-mAP gain is significant (CI excludes zero) while the tiny-defect gain is not (CI includes zero).",
+      "evidence": ["past_runs/E7_Common_COCO_Evaluation"]
+    },
+    {
+      "phase": "04",
+      "title": "Model registration — first attempt",
+      "status": "done",
+      "summary": "All 11 checkpoints were attempted for Unity Catalog registration. All 11 were BLOCKED_OR_FAILED on the first attempt: the 4 YOLO checkpoints failed MLflow pyfunc cloudpickle serialization (\"cannot pickle '_Classes' object\"); the 7 PyTorch two-stage/transformer checkpoints were blocked because a bare state-dict does not define a verified constructor, transforms or postprocessing.",
+      "evidence": ["mlflow_model_inventory/registration_results.json"]
+    },
+    {
+      "phase": "05",
+      "title": "Fix & retry registration",
+      "status": "done",
+      "summary": "The 4 YOLO models were re-logged using MLflow's code-based (\"models-from-code\") logging path and successfully REGISTERED as Unity Catalog model version 1. The 7 PyTorch checkpoints remain ARTIFACT_LOGGED_ADAPTER_REQUIRED — the checkpoint bytes are preserved in MLflow, but a verified architecture-specific adapter is still required before they can be registered as runnable models.",
+      "evidence": ["mlflow_model_inventory/registration_retry_results.json"]
+    },
+    {
+      "phase": "06",
+      "title": "App-readiness smoke tests",
+      "status": "done",
+      "summary": "All 4 registered models passed end-to-end smoke tests: registry metadata, model signature, model load, live inference and bounding-box validation all PASS. Latencies ranged ~97ms (E19) to ~11.4s (YOLO11n baseline, first cold load).",
+      "evidence": ["mlflow_model_inventory/app_readiness/model_readiness.json"]
+    },
+    {
+      "phase": "07",
+      "title": "Model Serving endpoints provisioned",
+      "status": "done",
+      "summary": "Four dedicated Databricks Model Serving endpoints were provisioned, one per ready model (CPU, Small workload size, scale-to-zero enabled to minimize idle cost). These are the production-style inference contract the live demo calls first.",
+      "evidence": ["aerotrust-yolo11n-baseline", "aerotrust-e4-yolo11s", "aerotrust-e13-yolo26s", "aerotrust-e19-yolo26s"]
+    },
+    {
+      "phase": "08",
+      "title": "Live application & human review",
+      "status": "done",
+      "summary": "React + FastAPI Databricks App exposes the full research journey, experiment evidence, and a live inspection console. The console calls the Model Serving endpoint for the selected model, with an automatic fallback to direct Unity Catalog model loading if the endpoint is unavailable (e.g. still scaling from zero).",
+      "evidence": ["app.yaml", "backend/main.py"]
+    },
+    {
+      "phase": "09",
+      "title": "Verified adapters for two-stage/transformer models",
+      "status": "done",
+      "summary": "Three of the originally-blocked PyTorch checkpoints — E15 (Faster R-CNN R101), E17 (Cascade R-CNN R101, 12 epochs), and E20 (DINOv2 + SFP + Faster R-CNN, the best-reported model) — now have verified MLflow adapters (\"aerotrust-detector-v1\") and are REGISTERED. A new longer-training variant, E17x (Cascade R-CNN R101, 25 epochs), was registered alongside them. All four carry a \"decision support only\" note from the verified-adapter sign-off, and all four passed a live end-to-end inference smoke test through the app (direct Unity Catalog load path; no dedicated Model Serving endpoint provisioned yet for this batch). First-call latency is high (10-23s CPU cold load) since there is no warmed serving endpoint.",
+      "evidence": ["aerotrust.ml_models.e15_frcnn_r101", "aerotrust.ml_models.e17_cascade_r101_12ep", "aerotrust.ml_models.e17x_cascade_r101_25ep", "aerotrust.ml_models.e20_dinov2_sfp_frcnn"]
+    }
+  ],
+  "not_yet_done": [
+    "Four PyTorch checkpoints (E18, E21A, E21B, E22) still need verified architecture-specific adapters, registration, and smoke-testing before they can join the live selector.",
+    "Experiment Studio only produces a parameter/configuration preview; it is not wired to a Databricks Job for real training submission.",
+    "Confidence calibration, out-of-distribution/abstention handling, and durable inspector sign-off/audit storage are not implemented."
+  ]
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "e4-tiling",
+    "experiment": "E4 — YOLO11s",
+    "parameter": "Inference tiling",
+    "variants": [
+      {"label": "Full image", "map50": 40.66, "note": "Full-image run."},
+      {"label": "Tiled inference", "map50": 20.39, "note": "Tiled variant was worse — tiling split small defects across tile boundaries."}
+    ]
+  },
+  {
+    "id": "e13-slicing",
+    "experiment": "E13 — YOLO26s (seed 42)",
+    "parameter": "Full-image vs. sliced training/inference",
+    "variants": [
+      {"label": "Full image", "map50": 50.33, "note": "Full-image YOLO26s reported v5 result."},
+      {"label": "Full + slices", "map50": 53.13, "note": "Sliced inference/training variant; separate configuration from base E13."}
+    ]
+  },
+  {
+    "id": "e19-nms-slicing",
+    "experiment": "E19 — YOLO26s (seed 7)",
+    "parameter": "NMS threshold & slicing",
+    "variants": [
+      {"label": "Default NMS", "map50": 50.87, "note": "Seed 7 baseline configuration."},
+      {"label": "NMS 0.5", "map50": 55.62, "note": "Raising the NMS IoU threshold to 0.5 reduced over-suppression of overlapping defects."},
+      {"label": "Sliced inference", "map50": 55.00, "note": "Slicing gave a similar gain to the NMS change, but via a different mechanism."}
+    ]
+  }
+]

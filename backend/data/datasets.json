@@ -1,0 +1,71 @@
+[
+  {
+    "id": "dataset-v1",
+    "name": "Dataset lineage v1 — consolidated source inventory",
+    "status": "historical inventory",
+    "images": 11374,
+    "annotations": 23194,
+    "splits": {"train": 9266, "validation": 1335, "test": 773},
+    "classes": null,
+    "notes": "Earlier combined inventory: Aircraft Damage Yaked V4 (3,715), UTS V3 (6,803), Zenodo Dataset C (856). Earlier readiness notes flagged unresolved taxonomy, Zenodo annotation availability and split-independence checks. Not interchangeable with the later v5 benchmark."
+  },
+  {
+    "id": "dataset-v2",
+    "name": "Dataset lineage v2 — E7 six-class YOLO bundle",
+    "status": "reconstructed source bundle",
+    "images": 10509,
+    "annotations": null,
+    "splits": {"train": 8446, "validation": 1335, "test": 728},
+    "classes": 6,
+    "notes": "Bundle inventory: 8,446 train, 1,335 validation, 728 test. Training cache recorded 16,035 training objects. This is a distinct split inventory; do not assume identical records or split membership with v1."
+  },
+  {
+    "id": "dataset-v5",
+    "name": "Dataset v5 — locked research evaluation baseline",
+    "status": "audited / test fingerprint locked",
+    "images": 9350,
+    "annotations": 20471,
+    "splits": {"train": 6515, "validation": 1430, "test": 1405},
+    "classes": 6,
+    "notes": "Current audited baseline. 20,471 valid annotations; no malformed labels, invalid class IDs/coordinates, zero-area boxes, exact duplicates or missing/empty annotation images. 306 cross-split near-duplicate candidates remain unconfirmed; aircraft/session independence is not established.",
+    "audit": {
+      "audit_timestamp_utc": "2026-11-21T05:38:50.345291+00:00",
+      "test_lock_status": "MATCH",
+      "stored_test_fingerprint": "2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b",
+      "exact_duplicate_records": 0,
+      "cross_split_exact_duplicate_records": 0,
+      "near_duplicate_candidate_pairs": 4386,
+      "cross_split_near_duplicate_candidates": 306,
+      "annotation_error_count": 0,
+      "tiny_box_share": 0.22573396512139124,
+      "class_distribution": {
+        "Crack": {"train": 1273, "val": 273, "test": 281},
+        "Dent": {"train": 3888, "val": 830, "test": 835},
+        "Fastener Damage": {"train": 2395, "val": 519, "test": 511},
+        "Missing rivet": {"train": 3234, "val": 697, "test": 717},
+        "Paint-off": {"train": 1129, "val": 242, "test": 239},
+        "Rupture": {"train": 2386, "val": 510, "test": 512}
+      },
+      "findings": [
+        "Locked test fingerprint matches the current test images.",
+        "No exact SHA-256 image duplicates were detected across splits.",
+        "No malformed, invalid-class, invalid-coordinate or zero-area annotations were detected.",
+        "22.6% of valid annotations fall below 0.1% image area.",
+        "Training class largest/smallest ratio is 3.4x."
+      ],
+      "risks": [
+        "306 perceptual near-duplicate candidates cross split boundaries; manually inspect them.",
+        "No obvious aircraft/inspection metadata files were discovered by filename/content keyword scan."
+      ],
+      "recommendations": [
+        "Folder names repeat between splits. Determine whether these are meaningful aircraft/session identifiers.",
+        "Do not modify the locked v5 test split before completing the audit and preserving the current baseline.",
+        "If aircraft/session IDs exist, create a separate group-held-out evaluation split rather than randomly repartitioning images.",
+        "If group IDs do not exist, perform exact and near-duplicate review and document that aircraft-independent generalization cannot be verified.",
+        "For the next training ablation, preserve the current split and compare standard sampling against scale-aware sampling.",
+        "Use validation metrics to select models and inference settings; do not repeatedly tune against the test set."
+      ],
+      "source_path": "/Workspace/Users/hozefamustan.kanchwala@databricks.com/aerotrust/dataset_audit"
+    }
+  }
+]

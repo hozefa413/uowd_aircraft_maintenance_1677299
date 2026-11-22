@@ -1,0 +1,21 @@
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node / frontend build
+node_modules/
+frontend/dist/
+
+# Databricks CLI local sync state
+.databricks/
+
+# Sample/test images — not part of source; real demo images live in the UC Volume
+*.jpg
+*.jpeg
+*.png
+*.gif
+!databricks/**/*.png

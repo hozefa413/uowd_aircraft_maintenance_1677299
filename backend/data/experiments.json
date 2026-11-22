@@ -1,0 +1,9 @@
+[
+  {"id": "E4", "model": "E4 — YOLO11s", "family": "YOLO", "map50": 40.66, "map5095": 20.50, "tiny": null, "status": "historical reported result", "notes": "AP-small 5.01%; AP-large 35.23%. Full-image run. Tiled variant was worse (mAP50 20.39%)."},
+  {"id": "E13", "model": "E13 — YOLO26s seed 42", "family": "YOLO", "map50": 50.33, "map5095": null, "tiny": null, "status": "reported v5 test result", "notes": "Full-image YOLO26s."},
+  {"id": "E13-slice", "model": "E13 — YOLO26s full + slices", "family": "YOLO", "map50": 53.13, "map5095": null, "tiny": null, "status": "reported v5 test result", "notes": "Sliced inference/training variant; separate configuration."},
+  {"id": "E15", "model": "E15 — Faster R-CNN R101-FPN", "family": "Two-stage", "map50": 59.81, "map5095": 28.50, "tiny": 35.97, "status": "reported v5 test result", "notes": "Shared evaluator comparison with E17/E20."},
+  {"id": "E17", "model": "E17 — Cascade R-CNN R101-FPN", "family": "Two-stage", "map50": 61.07, "map5095": 32.26, "tiny": 33.92, "status": "reported v5 test result", "notes": "Shared evaluator comparison with E15/E20."},
+  {"id": "E19", "model": "E19 — YOLO26s seed 7", "family": "YOLO", "map50": 50.87, "map5095": null, "tiny": null, "status": "reported v5 test result", "notes": "Seed 7. NMS 0.5 variant AP50 55.62; sliced variant 55.00."},
+  {"id": "E20", "model": "E20 — DINOv2 + SFP + Faster R-CNN", "family": "Transformer + Two-stage", "map50": 64.76, "map5095": 33.20, "tiny": 36.08, "status": "reported v5 test result", "notes": "Best reported overall AP50. Tiny AP50 is only +0.11 percentage points vs E15; not a large tiny-defect gain."}
+]

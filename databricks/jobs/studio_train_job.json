@@ -1,0 +1,44 @@
+{
+  "name": "aerotrust-studio-train",
+  "max_concurrent_runs": 1,
+  "timeout_seconds": 7200,
+  "environments": [
+    {
+      "environment_key": "default",
+      "spec": {
+        "dependencies": [
+          "ultralytics"
+        ],
+        "environment_version": "5"
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "compute": {
+        "hardware_accelerator": "GPU_1xA10"
+      },
+      "disabled": false,
+      "email_notifications": {},
+      "environment_key": "default",
+      "notebook_task": {
+        "base_parameters": {
+          "architecture": "yolo11n",
+          "augmentation": "baseline",
+          "batch_size": "8",
+          "epochs": "2",
+          "image_size": "640",
+          "learning_rate": "0.001",
+          "optimizer": "AdamW",
+          "run_name": "studio_test_run",
+          "seed": "42"
+        },
+        "notebook_path": "/Workspace/Users/hozefamustan.kanchwala@databricks.com/aerotrust_showcase_build/studio_train",
+        "source": "WORKSPACE"
+      },
+      "run_if": "ALL_SUCCESS",
+      "task_key": "train",
+      "timeout_seconds": 7200
+    }
+  ]
+}
