@@ -1,75 +1,115 @@
-# AeroTrust Showcase — React + FastAPI for Databricks Apps
+# AeroTrust — Aircraft Defect Intelligence
 
-See [`research/`](research/README.md) for the real MLflow pyfunc adapter source
-code behind every served model, dataset-quality audit evidence, and
-per-experiment training configs/metrics. See [`databricks/`](databricks/README.md)
-for the Model Serving endpoint inventory and the Serverless GPU training job.
+A React + FastAPI showcase app for an aircraft surface defect detection research
+project, built to run as a Databricks App. It presents the full project —
+dataset lineage, model comparisons, architecture, and a live inspection demo —
+backed by real Databricks Model Serving endpoints and Unity Catalog models.
 
-## What this delivers
-A research-journey showcase with:
-- Executive command center and project evidence/status
-- Dataset lineage comparison (historical v1, E7 bundle v2, audited v5)
-- Model laboratory and architecture comparison
-- Experiment results with evidence labels and caveats
-- Parameterized experiment design panel (configuration preview; no claim of training-job execution)
-- Architecture and end-to-end pipeline view
-- Live inspection demo: select one of the four registered YOLO models, upload an image, run MLflow PyFunc inference, view annotated boxes and detections
-- Seven Torch checkpoints displayed as adapter-required, not falsely exposed as runnable models
+See [`research/`](research/README.md) for the MLflow pyfunc adapter source code
+behind every served model, the dataset audit evidence, and per-experiment
+training configs/metrics. See [`databricks/`](databricks/README.md) for the
+Model Serving endpoint inventory and the training job.
 
-## Important evidence discipline
-Dataset v1 and v2 are historical lineage records, not verified successive versions of the exact same immutable records. Their counts/splits differ and should not be interpreted as a direct before/after quality comparison. Dataset v5 is the current audited research baseline:
-- 9,350 images; 20,471 valid annotations
-- Train/validation/test: 6,515 / 1,430 / 1,405
-- 6 classes: Crack, Dent, Fastener Damage, Missing rivet, Paint-off, Rupture
-- 306 cross-split near-duplicate candidates are unconfirmed; aircraft/session independence remains unverified.
-- Locked test fingerprint: `2db49819b0ba156bedc8efcbd25152de26f83b0bc27b0b27b87babf7fea2ff2b`
+## What's in the app
 
-## Results interpretation
-E15, E17 and E20 values are from the shared evaluator:
-- E15: AP50 59.81%, tiny AP50 35.97%, mAP50-95 28.50%
-- E17: AP50 61.07%, tiny AP50 33.92%, mAP50-95 32.26%
-- E20: AP50 64.76%, tiny AP50 36.08%, mAP50-95 33.20%
-E20 has best reported overall AP50, but tiny AP50 is only +0.11 percentage points vs E15.
-YOLO and two-stage metrics may use different evaluation implementations; UI labels this caveat. Some historical metrics are unavailable and shown as unavailable rather than invented.
+- Project overview, dataset lineage (v1, v2, v5) and model laboratory pages
+- Experiment results with shared-evaluator comparisons across model families
+- Architecture diagrams per model family (YOLO, two-stage, transformer + two-stage)
+- Inspection demo: pick a model, upload or select a sample image, run live
+  inference through a Model Serving endpoint, see boxes and class confidences
+- A warm-up button that pings every serving endpoint in parallel, for getting
+  scale-to-zero compute ready before a live demo
+- Experiment Studio: configure training parameters and launch a real, capped
+  training job on Databricks Serverless GPU for the YOLO family
 
-## Registered models
-The live inference selector includes only models confirmed REGISTERED, version 1:
-- `aerotrust.ml_models.yolo11n_baseline`
-- `aerotrust.ml_models.e4_yolo11s`
-- `aerotrust.ml_models.e13_yolo26s`
-- `aerotrust.ml_models.e19_yolo26s`
+## Models
 
-Seven PyTorch checkpoints have artifacts preserved but require architecture-specific adapters and registration. The UI marks them as not yet inference-ready.
+8 of 12 tracked model configurations are registered in Unity Catalog and
+served live:
+
+| Model | Family | Compute |
+|---|---|---|
+| `yolo11n_baseline` | YOLO11n | CPU Small |
+| `e4_yolo11s` | YOLO11s | CPU Small |
+| `e13_yolo26s` | YOLO26s | CPU Small |
+| `e19_yolo26s` | YOLO26s | CPU Small |
+| `e15_frcnn_r101` | Faster R-CNN R101-FPN | GPU Small |
+| `e17_cascade_r101_12ep` | Cascade R-CNN R101-FPN | GPU Small |
+| `e17x_cascade_r101_25ep` | Cascade R-CNN R101-FPN | GPU Small |
+| `e20_dinov2_frcnn` | DINOv2 + SFP + Faster R-CNN | GPU Small |
+
+The remaining 4 (`e18_frcnn_r101_plus`, `e21a_frcnn_r50`, `e21b_frcnn_r101`,
+`e22_dinov3_frcnn`) have checkpoints preserved in MLflow but no verified
+inference adapter yet, and the UI marks them as not selectable.
+
+See [`databricks/README.md`](databricks/README.md) for the full endpoint list
+and how to recreate them.
+
+## Dataset
+
+Dataset v5 is the current audited baseline: 9,350 images, 20,471 annotations,
+six classes (Crack, Dent, Fastener Damage, Missing rivet, Paint-off, Rupture),
+split 6,515 / 1,430 / 1,405. The test split's SHA-256 fingerprint is locked —
+see `research/dataset_audit/` for the full audit.
+
+v1 and v2 are earlier dataset inventories, not cleaned successors of v5 — they
+have different source composition and split counts, so the lineage page shows
+them as separate historical records rather than a before/after comparison.
+
+## Results
+
+E15, E17 and E20 are compared under the same evaluator:
+
+| Model | AP50 | tiny AP50 | mAP50-95 |
+|---|---|---|---|
+| E15 — Faster R-CNN R101 | 59.81% | 35.97% | 28.50% |
+| E17 — Cascade R-CNN R101 | 61.07% | 33.92% | 32.26% |
+| E20 — DINOv2 + SFP + Faster R-CNN | 64.76% | 36.08% | 33.20% |
+
+E20 has the best overall AP50, but its tiny-object AP50 is only +0.11pp over
+E15 — a paired bootstrap on v5 shows the overall gain is significant while the
+tiny-defect gain isn't. YOLO and two-stage metrics come from different
+evaluation implementations, so they're not directly comparable; the UI labels
+this where it matters.
+
+## Run locally
+
+```bash
+pip install -r requirements.txt
+uvicorn backend.main:app --host 0.0.0.0 --port 8000
+```
+
+Needs Databricks authentication (e.g. `databricks auth login`, or an existing
+profile) for model loading and serving calls. Never put a PAT in source code.
 
 ## Build frontend
-Use Node 20+ on a development machine or build environment:
+
 ```bash
 cd frontend
 npm install
 npm run build
 ```
-The build creates `frontend/dist`, which FastAPI serves at `/`. Upload the complete folder including `frontend/dist` to the Workspace before deploying the App. Do not rely on the Databricks App container to run the Node build unless your workspace runtime explicitly supports Node.
 
-## Sample image gallery
-The inspection page supports direct image upload. It can also show a sample-image dropdown when you configure `AEROTRUST_SAMPLE_IMAGE_DIR` to an app-readable directory containing approved JPG/PNG inspection images. Prefer a Unity Catalog Volume path mounted/accessible to the App service principal. Grant read access to that volume. The backend exposes `/api/v1/sample-images`; no synthetic or fabricated aircraft samples are included.
-
-## Run locally (if workspace credentials are configured)
-```bash
-pip install -r requirements.txt
-uvicorn backend.main:app --host 0.0.0.0 --port 8000
-```
-Databricks model loading requires Databricks authentication and permissions. Do not put a PAT in source code.
+This creates `frontend/dist`, which FastAPI serves at `/`. Build before
+uploading to the Workspace — don't rely on the App container running the
+Node build for you.
 
 ## Deploy to Databricks Apps
-1. Build the frontend and upload the complete project folder (including `frontend/dist`) to a Workspace folder.
-2. Create a Databricks App using this project folder and the `app.yaml` command.
-3. Add app dependencies from `requirements.txt` if your app configuration flow requires it.
-4. Give the app service principal `USE CATALOG` on `aerotrust`, `USE SCHEMA` on `aerotrust.ml_models`, and `EXECUTE` on the four registered models, or add them through the App resource configuration if available.
-5. Deploy. Test all four models from the live app with validation images.
-6. For the seven PyTorch models, add them to the live selector only after verified architecture adapters are implemented, registered, and smoke-tested.
 
-## Parameterized training
-The Experiment Studio page currently creates a reproducible parameter/configuration preview and captures the intended dimensions (architecture, dataset, image size, batch size, epochs, learning rate, optimizer, seed, augmentation, confidence threshold). It intentionally does not launch Databricks Jobs. Connect it to your actual training Job IDs and parameter contract before enabling job submission.
+1. Build the frontend (above) and upload the whole project folder, including
+   `frontend/dist`, to a Workspace folder.
+2. Create a Databricks App pointing at that folder, using `app.yaml`.
+3. Grant the app's service principal `USE CATALOG` on `aerotrust`,
+   `USE SCHEMA` on `aerotrust.ml_models`, `CAN_QUERY` on each serving endpoint,
+   and `EXECUTE` on each registered model — see
+   [`databricks/README.md`](databricks/README.md) for the full list.
+4. Set `AEROTRUST_SAMPLE_IMAGE_DIR` in `app.yaml` to a Unity Catalog Volume
+   path if you want the sample-image dropdown, and grant `READ_VOLUME` on it.
+5. Deploy, then run the warm-up button and test each model from the live app.
 
 ## Sample images
-The UI accepts uploaded images in the demo panel. It does not fabricate annotated examples. Use actual validation images or approved aircraft inspection imagery for public demos.
+
+The inspection demo reads sample images from a Unity Catalog Volume via the
+Files API (Databricks Apps don't mount `/Volumes` as a filesystem) — see
+`databricks/README.md` for the manifest format. Direct upload also works
+without any sample-image configuration.
