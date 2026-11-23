@@ -179,6 +179,84 @@ def _enum_value(x):
     return x.value if hasattr(x, "value") else x
 
 
+STUDIO_EXPERIMENT_PATH = os.getenv(
+    "AEROTRUST_STUDIO_EXPERIMENT_PATH",
+    "/Workspace/Users/hozefamustan.kanchwala@databricks.com/aerotrust/studio_runs/mlflow_experiment",
+)
+
+
+def _studio_run_params(run):
+    op = getattr(run, "overriding_parameters", None)
+    return (getattr(op, "notebook_params", None) or {}) if op else {}
+
+
+def _studio_run_metrics(mlflow_run_name):
+    """Best-effort lookup of the MLflow metrics logged for a studio run, by MLflow run name."""
+    if not mlflow_run_name:
+        return None
+    safe_name = mlflow_run_name.replace("'", "")
+    try:
+        df = mlflow.search_runs(
+            experiment_names=[STUDIO_EXPERIMENT_PATH],
+            filter_string=f"tags.`mlflow.runName` = '{safe_name}'",
+            max_results=1,
+        )
+    except Exception:
+        return None
+    if df.empty:
+        return None
+    row = df.iloc[0]
+    metrics = {}
+    for col in df.columns:
+        if not col.startswith("metrics."):
+            continue
+        key = col[len("metrics."):]
+        if key.startswith("system/"):
+            continue  # GPU/CPU/disk telemetry, not a training result
+        val = row[col]
+        if val is not None and pd.notna(val):
+            metrics[key] = round(float(val), 4)
+    return metrics or None
+
+
+@app.get("/api/v1/studio/runs")
+def studio_runs():
+    """All past (and in-flight) runs of the Experiment Studio training job, with
+    the actually-submitted parameters and a best-effort MLflow metrics lookup
+    for completed runs."""
+    try:
+        runs = list(workspace_client().jobs.list_runs(job_id=STUDIO_JOB_ID, limit=25))
+    except Exception as e:
+        raise HTTPException(500, f"Failed to list past runs: {type(e).__name__}: {e}")
+    host = str(workspace_client().config.host).rstrip("/")
+    out = []
+    for r in runs:
+        state = r.state
+        life_cycle = _enum_value(state.life_cycle_state) if state else None
+        result = _enum_value(state.result_state) if state else None
+        params = _studio_run_params(r)
+        mlflow_run_name = params.get("run_name")
+        metrics = _studio_run_metrics(mlflow_run_name) if life_cycle == "TERMINATED" else None
+        out.append({
+            "run_id": r.run_id,
+            "mlflow_run_name": mlflow_run_name,
+            "life_cycle_state": life_cycle,
+            "result_state": result,
+            "state_message": state.state_message if state else None,
+            "start_time": r.start_time,
+            "run_duration_ms": r.run_duration,
+            "architecture": params.get("architecture"),
+            "epochs": params.get("epochs"),
+            "image_size": params.get("image_size"),
+            "batch_size": params.get("batch_size"),
+            "augmentation": params.get("augmentation"),
+            "optimizer": params.get("optimizer"),
+            "databricks_run_url": f"{host}/jobs/{STUDIO_JOB_ID}/runs/{r.run_id}",
+            "metrics": metrics,
+        })
+    return {"runs": out}
+
+
 @app.get("/api/v1/serving-endpoints")
 def serving_endpoints():
     """Live status of the Databricks Model Serving endpoints backing the ready models."""
