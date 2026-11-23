@@ -1,4 +1,4 @@
-import os, io, json, base64, time, logging, threading, csv, concurrent.futures
+import os, io, json, base64, time, logging, threading, csv
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -285,16 +285,17 @@ def _warmup_one(model):
         return {"model_id": model["id"], "name": model["name"], "success": False, "error": f"{type(e).__name__}: {e}", "elapsed_ms": round((time.perf_counter() - t0) * 1000, 1)}
 
 
-@app.post("/api/v1/warmup")
-def warmup():
-    """Send a trivial inference request to every serving endpoint in parallel,
-    forcing scale-to-zero endpoints to scale up ahead of a live demo."""
-    targets = [m for m in MODEL_CATALOG if m["ready"] and m.get("serving_endpoint")]
-    if not targets:
-        return {"results": []}
-    with concurrent.futures.ThreadPoolExecutor(max_workers=len(targets)) as ex:
-        results = list(ex.map(_warmup_one, targets))
-    return {"results": results}
+@app.post("/api/v1/warmup/{model_id}")
+async def warmup_one(model_id: str):
+    """Send a trivial inference request to a single serving endpoint, forcing
+    scale-to-zero compute to scale up ahead of a live demo. Warming one model
+    per HTTP request (rather than fanning all of them into one request) means
+    a slow cold start on one endpoint can't time out the whole batch at the
+    Databricks Apps proxy and return an HTML error page in place of JSON."""
+    model = MODEL_BY_ID.get(model_id)
+    if not model:
+        raise HTTPException(404, "Unknown model identifier")
+    return await run_in_threadpool(_warmup_one, model)
 
 
 @app.post("/api/v1/inference/{model_id}")
