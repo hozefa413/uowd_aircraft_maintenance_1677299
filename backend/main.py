@@ -1,4 +1,4 @@
-import os, io, json, base64, time, logging, threading, csv
+import os, io, json, base64, time, logging, threading, csv, concurrent.futures
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -222,9 +222,22 @@ def _build_payload_record(model, encoded_image, filename):
     return {"image_base64": encoded_image}
 
 
+def _normalize_detection(d):
+    """Adapters disagree on field names: YOLO emits confidence/bbox, the
+    two-stage and DINOv2 adapters emit score/box_xyxy. Normalize to one
+    schema so the frontend can treat every model identically."""
+    return {
+        "class_id": d.get("class_id"),
+        "class_name": d.get("class_name"),
+        "confidence": float(d["confidence"] if "confidence" in d else d.get("score", 0)),
+        "bbox": d["bbox"] if "bbox" in d else d.get("box_xyxy", []),
+    }
+
+
 def _parse_prediction(row):
     raw = row.get("detections_json", row.get("detections", "[]"))
     detections = json.loads(raw) if isinstance(raw, str) else (raw or [])
+    detections = [_normalize_detection(d) for d in detections]
     reported_ms = row.get("inference_time_ms", row.get("inference_ms"))
     model_name = row.get("model_name", row.get("model_id"))
     return detections, reported_ms, model_name
@@ -247,6 +260,41 @@ def query_direct_uc_load(model, encoded_image, filename):
     row = pred.iloc[0].to_dict() if isinstance(pred, pd.DataFrame) else pred
     detections, reported_ms, model_name = _parse_prediction(row)
     return detections, reported_ms, model_name
+
+
+_WARMUP_IMAGE_B64 = None
+
+
+def _warmup_image_b64():
+    global _WARMUP_IMAGE_B64
+    if _WARMUP_IMAGE_B64 is None:
+        buf = io.BytesIO()
+        Image.new("RGB", (64, 64), color=(128, 128, 128)).save(buf, format="JPEG")
+        _WARMUP_IMAGE_B64 = base64.b64encode(buf.getvalue()).decode("utf-8")
+    return _WARMUP_IMAGE_B64
+
+
+def _warmup_one(model):
+    t0 = time.perf_counter()
+    if not model.get("serving_endpoint"):
+        return {"model_id": model["id"], "name": model["name"], "success": False, "error": "No serving endpoint configured for this model", "elapsed_ms": 0}
+    try:
+        query_serving_endpoint(model, _warmup_image_b64(), "warmup.jpg")
+        return {"model_id": model["id"], "name": model["name"], "success": True, "elapsed_ms": round((time.perf_counter() - t0) * 1000, 1)}
+    except Exception as e:
+        return {"model_id": model["id"], "name": model["name"], "success": False, "error": f"{type(e).__name__}: {e}", "elapsed_ms": round((time.perf_counter() - t0) * 1000, 1)}
+
+
+@app.post("/api/v1/warmup")
+def warmup():
+    """Send a trivial inference request to every serving endpoint in parallel,
+    forcing scale-to-zero endpoints to scale up ahead of a live demo."""
+    targets = [m for m in MODEL_CATALOG if m["ready"] and m.get("serving_endpoint")]
+    if not targets:
+        return {"results": []}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(targets)) as ex:
+        results = list(ex.map(_warmup_one, targets))
+    return {"results": results}
 
 
 @app.post("/api/v1/inference/{model_id}")

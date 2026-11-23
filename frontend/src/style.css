@@ -107,3 +107,4 @@ footer{color:#7f93a8}
 .pibar small{font-size:10.35px;color:var(--muted);text-align:center}.pibar b{font-size:13.8px}
 .pi-note{display:flex;gap:9px;padding:12px 14px;border-radius:10px;background:#ffffff08;border:1px solid var(--line)}.pi-note p{font-size:11.5px;color:var(--muted);line-height:1.6;margin:0}.pi-note b{color:#eaf1fa}
 .runstatus{margin-top:13px;padding:14px;border:1px solid var(--line);border-radius:10px;background:#ffffff08;display:flex;flex-direction:column;gap:10px}.runstatus-head{display:flex;align-items:center;gap:10px}.runstatus-head small{color:var(--muted);font-size:9px}
+.warmup-results{display:flex;flex-direction:column;gap:7px;margin-top:4px}.warmup-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#ffffff08;font-size:10px}.warmup-row.ok{color:#64d6a8}.warmup-row.fail{color:#edbd76}.warmup-row b{color:#eaf1fa;font-weight:600;flex:1}.warmup-row small{color:inherit;white-space:nowrap}
