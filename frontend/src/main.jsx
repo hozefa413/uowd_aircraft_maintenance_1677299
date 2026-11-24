@@ -1,7 +1,7 @@
 import React, {useEffect,useMemo,useRef,useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {BarChart,Bar,Cell,XAxis,YAxis,LabelList,ResponsiveContainer,CartesianGrid,LineChart,Line,Legend,AreaChart,Area} from 'recharts';
-import {Plane,LayoutDashboard,Database,BrainCircuit,FlaskConical,Workflow,ScanSearch,ShieldCheck,Settings,ChevronRight,ChevronDown,Upload,Play,Activity,Layers,GitBranch,Clock3,CheckCircle2,AlertTriangle,Search,ArrowUpRight,SlidersHorizontal,FileImage,Network,Box,RefreshCw,Download,Info,Menu,Sun,Moon,Crown,Layers3,Zap} from 'lucide-react';
+import {Plane,LayoutDashboard,Database,BrainCircuit,FlaskConical,Workflow,ScanSearch,ShieldCheck,Settings,ChevronRight,ChevronDown,ChevronLeft,Upload,Play,Activity,Layers,GitBranch,Clock3,CheckCircle2,AlertTriangle,Search,ArrowUpRight,SlidersHorizontal,FileImage,Network,Box,RefreshCw,Download,Info,Menu,Sun,Moon,Crown,Layers3,Zap,X,Maximize2} from 'lucide-react';
 import './style.css';
 
 const API='/api/v1';
@@ -177,7 +177,8 @@ Response:
 }`}</pre><div className="smallmuted">The backend tries the model's Model Serving endpoint first; on any failure it falls back to loading the model directly from Unity Catalog and reports which path actually served the request.</div></Panel></div><Panel title="Model Serving endpoints — live status" sub="Queried from the Databricks Serving API at page load"><div className="tablewrap"><table><thead><tr><th>Model</th><th>Endpoint</th><th>Ready</th><th>Workload</th><th>Scale to zero</th></tr></thead><tbody>{serving.length?serving.map(s=><tr key={s.endpoint_name}><td><b>{s.model_id}</b></td><td className="mono">{s.endpoint_name}</td><td><span className={`status ${s.ready==='READY'?'green':'amber'}`}>{s.ready||'UNKNOWN'}</span></td><td>{s.workload_type} · {s.workload_size}</td><td>{s.scale_to_zero_enabled?'Yes':'No'}</td></tr>):<tr><td colSpan="5" className="smallmuted">No live serving status yet — check that the app can reach the Databricks Serving API.</td></tr>}</tbody></table></div></Panel><div className="notice"><AlertTriangle size={17}/><div><b>Deployment boundary</b><p>The app does not launch training jobs yet. The Experiment Studio is a parameterized configuration preview; wire it to real Databricks Job IDs and training notebooks before enabling execution.</p></div></div></>}
 function InspectionPage({models}){const [model,setModel]=useState(models.find(m=>m.ready)?.id||'e19_yolo26s'),[file,setFile]=useState(null),[preview,setPreview]=useState(null),[result,setResult]=useState(null),[busy,setBusy]=useState(false),[err,setErr]=useState(''),[threshold,setThreshold]=useState(.02),[apiLive,setApiLive]=useState(false),[samples,setSamples]=useState([]),[sampleSel,setSampleSel]=useState(''),[sampleLoading,setSampleLoading]=useState(false),[warmup,setWarmup]=useState(null),[warmingUp,setWarmingUp]=useState(false),input=useRef(null);
  const MAX_COMPARE=6;
- const [compareOn,setCompareOn]=useState(false),[compareSel,setCompareSel]=useState([]),[compareRuns,setCompareRuns]=useState({}),[comparing,setComparing]=useState(false);
+ const [compareOn,setCompareOn]=useState(false),[compareSel,setCompareSel]=useState([]),[compareRuns,setCompareRuns]=useState({}),[comparing,setComparing]=useState(false),[modalId,setModalId]=useState(null);
+ useEffect(()=>{if(!modalId)return;const onKey=e=>{if(e.key==='Escape')setModalId(null)};window.addEventListener('keydown',onKey);return()=>window.removeEventListener('keydown',onKey)},[modalId]);
  async function runWarmup(){setWarmingUp(true);setWarmup(null);const targets=models.filter(m=>m.ready&&m.serving_endpoint);const results=await Promise.all(targets.map(async m=>{const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),90000);try{const r=await fetch(`${API}/warmup/${m.id}`,{method:'POST',signal:ctl.signal});return await r.json()}catch(e){return {model_id:m.id,name:m.name,success:false,error:e.name==='AbortError'?'Timed out after 90s':e.message}}finally{clearTimeout(to)}}));setWarmup(results);setWarmingUp(false)}
  const ready=models.filter(m=>m.ready);useEffect(()=>{fetch(API+'/health').then(r=>setApiLive(r.ok)).catch(()=>setApiLive(false));fetch(API+'/sample-images').then(r=>r.ok?r.json():null).then(d=>{if(d?.configured)setSamples(d.items||[])}).catch(()=>{})},[]);
  function choose(f){if(!f)return;setFile(f);setPreview(URL.createObjectURL(f));setResult(null);setErr('');setSampleSel('')}
@@ -219,19 +220,46 @@ function InspectionPage({models}){const [model,setModel]=useState(models.find(m=
   {!file&&<div className="smallmuted">Upload or pick an inspection image above first.</div>}
   {Object.keys(compareRuns).length>0&&<>
    <div className="comparegrid">{compareSel.map(id=>{const m=ready.find(x=>x.id===id);const run=compareRuns[id]||{status:'pending'};const dets=run.data?.detections?.filter(d=>Number(d.confidence)>=threshold)||[];const top=compareTop[id];const isLeader=id===leaderId;
-    return <div key={id} className={`comparecard ${run.status}`} style={{'--chip-accent':FAMILY_COLOR[m?.family]||'var(--accent)'}}>
+    return <div key={id} className={`comparecard ${run.status} ${run.status==='done'?'clickable':''}`} style={{'--chip-accent':FAMILY_COLOR[m?.family]||'var(--accent)'}} onClick={()=>run.status==='done'&&setModalId(id)} role={run.status==='done'?'button':undefined} tabIndex={run.status==='done'?0:undefined} onKeyDown={e=>{if(run.status==='done'&&(e.key==='Enter'||e.key===' ')){e.preventDefault();setModalId(id)}}}>
      <div className="comparecard-head"><b>{m?.name}</b><span style={{display:'flex',gap:5,alignItems:'center'}}>{run.status==='done'&&groundTruth&&(compareCorrect[id]?<CheckCircle2 size={14} className="correct-mark" title={`Correctly identified ${groundTruth.main_class}`}/>:<AlertTriangle size={14} className="incorrect-mark" title={`Dataset says ${groundTruth.main_class}`}/>)}{isLeader&&<Crown size={15} className="leader-crown"/>}</span></div>
      {run.status==='pending'&&<div className="comparecard-loading"><RefreshCw className="spin" size={18}/><small>Running…</small></div>}
      {run.status==='error'&&<div className="comparecard-loading"><AlertTriangle size={16}/><small>{run.error}</small></div>}
-     {run.status==='done'&&<><div className="comparecard-visual">{preview&&<img src={preview}/>}{dets.map((d,i)=>{const [x1,y1,x2,y2]=d.bbox;const w=run.data.image.width,h=run.data.image.height;return <div key={i} className="bbox mini" style={{left:`${x1/w*100}%`,top:`${y1/h*100}%`,width:`${(x2-x1)/w*100}%`,height:`${(y2-y1)/h*100}%`}}/>})}</div>
+     {run.status==='done'&&<><div className="comparecard-visual">{preview&&<img src={preview}/>}{dets.map((d,i)=>{const [x1,y1,x2,y2]=d.bbox;const w=run.data.image.width,h=run.data.image.height;return <div key={i} className="bbox mini" style={{left:`${x1/w*100}%`,top:`${y1/h*100}%`,width:`${(x2-x1)/w*100}%`,height:`${(y2-y1)/h*100}%`}}/>})}<div className="comparecard-zoom"><Maximize2 size={16}/></div></div>
       {top?<div className="comparecard-result"><b>{top.class_name}</b><span>{(Number(top.confidence)*100).toFixed(1)}%</span></div>:<div className="comparecard-result muted"><span>No defect above threshold</span></div>}
       <small className="comparecard-meta">{dets.length} above threshold · {(run.elapsed_ms/1000).toFixed(1)}s</small></>}
     </div>})}
    </div>
    <div className="chartwrap" style={{marginTop:18}}><ResponsiveContainer width="100%" height={200}><BarChart data={compareChartData} margin={{top:10,right:8,left:-20,bottom:0}}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E4E6EF"/><XAxis dataKey="name" tick={{fontSize:10,fill:'#5C6279'}} axisLine={false} tickLine={false}/><YAxis domain={[0,100]} tick={{fontSize:11,fill:'#5C6279'}} axisLine={false} tickLine={false}/><Bar dataKey="confidence" radius={[6,6,0,0]}>{compareChartData.map((d,i)=><Cell key={i} fill={d.color}/>)}<LabelList dataKey="confidence" position="top" formatter={v=>v?`${v}%`:''} style={{fill:'#14162B',fontSize:10,fontWeight:700}}/></Bar></BarChart></ResponsiveContainer></div>
-   <div className="smallmuted">Leaderboard sorts by highest confidence among detections above the current display threshold ({Math.round(threshold*100)}%).</div>
+   <div className="smallmuted">Leaderboard sorts by highest confidence among detections above the current display threshold ({Math.round(threshold*100)}%). Click any card to see it full-size.</div>
   </>}
  </Panel>
+ {modalId&&compareRuns[modalId]?.status==='done'&&(()=>{
+  const mm=ready.find(x=>x.id===modalId);const rd=compareRuns[modalId].data;const mdets=rd.detections.filter(d=>Number(d.confidence)>=threshold);
+  const idx=compareSel.indexOf(modalId);const prevId=compareSel[(idx-1+compareSel.length)%compareSel.length];const nextId=compareSel[(idx+1)%compareSel.length];
+  const mCorrect=groundTruth&&mdets.find(d=>d.class_name===groundTruth.main_class);
+  return <div className="modal-backdrop" onClick={()=>setModalId(null)}>
+   <div className="modal-box" onClick={e=>e.stopPropagation()}>
+    <div className="modal-head">
+     <div><b>{mm?.name}</b><small>{mm?.architecture}</small></div>
+     <button className="iconbtn" onClick={()=>setModalId(null)}><X size={20}/></button>
+    </div>
+    {compareSel.length>1&&<div className="modal-nav">
+     <button className="btn ghostlight" onClick={()=>setModalId(prevId)}><ChevronLeft size={15}/> Prev</button>
+     <span className="smallmuted" style={{margin:0}}>{idx+1} / {compareSel.length}</span>
+     <button className="btn ghostlight" onClick={()=>setModalId(nextId)}>Next <ChevronRight size={15}/></button>
+    </div>}
+    <div className="modal-visual">{preview&&<img src={preview}/>}{mdets.map((d,i)=>{const [x1,y1,x2,y2]=d.bbox;const w=rd.image.width,h=rd.image.height;return <div key={i} className="bbox" style={{left:`${x1/w*100}%`,top:`${y1/h*100}%`,width:`${(x2-x1)/w*100}%`,height:`${(y2-y1)/h*100}%`}}><b>{d.class_name} {Number(d.confidence).toFixed(2)}</b></div>})}</div>
+    {groundTruth&&<div className={`notice compact ${mCorrect?'correct':mdets.length?'incorrect':'unknown'}`}>{mCorrect?<CheckCircle2 size={16}/>:<AlertTriangle size={16}/>}<p>{mCorrect?<><b>Correct.</b> Matches dataset annotation <b>{groundTruth.main_class}</b> at {(Number(mCorrect.confidence)*100).toFixed(1)}% confidence.</>:mdets.length?<><b>Incorrect.</b> Dataset annotation says <b>{groundTruth.main_class}</b>, top prediction is <b>{mdets[0].class_name}</b>.</>:<><b>No prediction to check.</b> Nothing scored above the current {Math.round(threshold*100)}% threshold.</>}</p></div>}
+    <div className="resultstats">
+     <div><small>DETECTIONS</small><b>{rd.detections.length}</b></div>
+     <div><small>ABOVE THRESHOLD</small><b>{mdets.length}</b></div>
+     <div><small>INFERENCE</small><b>{compareRuns[modalId].elapsed_ms?`${(compareRuns[modalId].elapsed_ms/1000).toFixed(1)}s`:'—'}</b></div>
+     <div><small>IMAGE SIZE</small><b>{rd.image.width} × {rd.image.height}</b></div>
+    </div>
+    <div className="tablewrap"><table><thead><tr><th>Defect</th><th>Confidence</th><th>Bounding box · px</th></tr></thead><tbody>{mdets.map((d,i)=><tr key={i}><td><b>{d.class_name}</b></td><td>{(Number(d.confidence)*100).toFixed(1)}%</td><td className="mono">{d.bbox.map(x=>Number(x).toFixed(1)).join(', ')}</td></tr>)}</tbody></table></div>
+   </div>
+  </div>;
+ })()}
  </>}
 const STUDIO_TRAINABLE=new Set(['yolo11n','yolo11s','yolo26s']);
 function StudioPage(){const [arch,setArch]=useState('yolo26s'),[dataset,setDataset]=useState('dataset-v5'),[size,setSize]=useState(1280),[batch,setBatch]=useState(8),[epochs,setEpochs]=useState(50),[lr,setLr]=useState('0.001'),[seed,setSeed]=useState(42),[optimizer,setOptimizer]=useState('AdamW'),[aug,setAug]=useState('baseline'),[conf,setConf]=useState(.25);const [copied,setCopied]=useState(false);const [launching,setLaunching]=useState(false),[runErr,setRunErr]=useState('');const [pastRuns,setPastRuns]=useState([]),[runsLoading,setRunsLoading]=useState(false);const config={dataset,architecture:arch,image_size:size,batch_size:batch,epochs,learning_rate:Number(lr),optimizer,seed,augmentation:aug,inference_confidence_threshold:conf};

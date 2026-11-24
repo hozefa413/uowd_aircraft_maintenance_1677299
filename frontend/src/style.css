@@ -421,6 +421,21 @@ button,.btn,.iconbtn,.mobilemenu,.navitem,.minicard{transition:background .18s e
 .comparecard-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--text-3);padding:22px 0;flex:1;text-align:center}
 .comparecard-visual{position:relative;border-radius:8px;overflow:hidden;background:var(--surface-2);aspect-ratio:4/3}
 .comparecard-visual img{width:100%;height:100%;object-fit:contain}
+.comparecard.clickable{cursor:pointer}
+.comparecard.clickable:hover{border-color:var(--border-strong);box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.comparecard-zoom{position:absolute;right:6px;bottom:6px;width:26px;height:26px;border-radius:7px;background:rgba(20,22,43,.55);color:#fff;display:grid;place-items:center;opacity:0;transition:opacity .15s ease}
+.comparecard.clickable:hover .comparecard-zoom{opacity:1}
+.modal-backdrop{position:fixed;inset:0;background:rgba(10,12,24,.65);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px;animation:modalFade .18s ease}
+@keyframes modalFade{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow-lg);max-width:880px;width:100%;max-height:90vh;overflow-y:auto;padding:22px}
+.modal-box{animation:modalPop .22s cubic-bezier(.34,1.3,.64,1)}
+@keyframes modalPop{from{opacity:0;transform:scale(.95) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}
+.modal-head b{display:block;font:800 16px Manrope;color:var(--text)}
+.modal-head small{color:var(--text-2);font-size:11px}
+.modal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.modal-visual{position:relative;width:100%;margin-bottom:14px;border-radius:10px;overflow:hidden;background:var(--surface-2)}
+.modal-visual img{width:100%;display:block}
 .comparecard-result{display:flex;align-items:center;justify-content:space-between;font-size:12.65px}
 .comparecard-result b{color:var(--text)}
 .comparecard-result span{font-weight:700;color:var(--chip-accent)}
