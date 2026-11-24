@@ -1,0 +1,28 @@
+{
+  "num_classes": 7,
+  "class_names": [
+    "Crack",
+    "Dent",
+    "Fastener Damage",
+    "Missing rivet",
+    "Paint-off",
+    "Rupture"
+  ],
+  "cascade": false,
+  "box_nms_thresh": 0.5,
+  "max_det": 300,
+  "anchor_sizes": [
+    [8, 16],
+    [24, 32],
+    [48, 64],
+    [96, 128],
+    [192, 384]
+  ],
+  "family": "resnet",
+  "arch": "resnet101",
+  "head_v2": false,
+  "image_size": 1280,
+  "default_score_threshold": 0.7,
+  "source_checkpoint_sha256": "163260cf9a0d0e33aa09529b4ae092fb2c62de9c9cf6478bd59e1df2e6c6b76c",
+  "adapter_contract": "aerotrust-detector-v1"
+}

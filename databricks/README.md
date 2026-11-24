@@ -16,10 +16,37 @@ reference for recreating them.
 | `aerotrust-e17-cascade-r101` | `aerotrust.ml_models.e17_cascade_r101_12ep` | GPU_SMALL, scale-to-zero |
 | `aerotrust-e17x-cascade-r101` | `aerotrust.ml_models.e17x_cascade_r101_25ep` | GPU_SMALL, scale-to-zero |
 | `aerotrust-e20-dinov2-frcnn` | `aerotrust.ml_models.e20_dinov2_sfp_frcnn` | GPU_SMALL, scale-to-zero |
+| `aerotrust-e18-frcnn-r101-plus` | `aerotrust.ml_models.e18_frcnn_r101_plus` | GPU_SMALL, scale-to-zero |
+| `aerotrust-e21a-frcnn-r50` | `aerotrust.ml_models.e21a_frcnn_r50` | GPU_SMALL, scale-to-zero |
+| `aerotrust-e21b-frcnn-r101` | `aerotrust.ml_models.e21b_frcnn_r101` | GPU_SMALL, scale-to-zero |
+| `aerotrust-e22-dinov3-frcnn` | `aerotrust.ml_models.e22_dinov3_frcnn` | GPU_SMALL, scale-to-zero |
 
 The app's service principal needs `CAN_QUERY` on each, plus `EXECUTE` on the
 underlying registered model (for the direct-load fallback path) and
 `USE_CATALOG`/`USE_SCHEMA` on `aerotrust`/`aerotrust.ml_models`.
+
+### E18 / E21A / E21B / E22 — registered without new adapter code
+
+All four reuse the exact same `two_stage_pyfunc_adapter.py` already serving
+E15/E17/E17x/E20 — only a new config JSON per model, no new Python. E18 and
+E22 have real recorded training metrics (`summary.json` in their workspace
+experiment folders); E21A/E21B have **no training metadata anywhere in the
+workspace** (confirmed empty experiment folders), so no accuracy metric is
+claimed for them in the app. Before registering any of the four, each
+checkpoint was verified by: strict `state_dict` load against the proposed
+config, a real forward pass, and (post-registration) a full `predict()` smoke
+test through the actual MLflow pyfunc wrapper — not assumed from the
+checkpoint's filename alone. This caught a real issue: E21A/E21B's RPN head
+has 3 anchors/level (one scale per FPN level), not the project's usual 2
+scales/level used by every other resnet-family model here; the config
+reflects the verified value, not the usual default.
+
+E22 (DINOv3 ViT-B/16) uses the adapter's `family: "vit"` branch with
+`timm_name: "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m"` — this pulls the
+backbone architecture from Hugging Face Hub at model-load time, so the
+serving container needs outbound network access to huggingface.co and a
+`timm` version new enough to recognize DINOv3 (`timm==1.0.31`, already pinned
+in `requirements.txt`, works).
 
 ## Experiment Studio training job
 

@@ -17,18 +17,24 @@ fallback in the app.
   (`yolo11n_baseline`, `e4_yolo11s`, `e13_yolo26s`, `e19_yolo26s`). Wraps
   Ultralytics YOLO inference behind the app's `image_base64` contract.
 - `adapters/two_stage_pyfunc_adapter.py` — contract `aerotrust-detector-v1`,
-  shared by `e15_frcnn_r101`, `e17_cascade_r101_12ep`, `e17x_cascade_r101_25ep`.
-  Implements a ViT + Simple Feature Pyramid (ViTDet-style) backbone option and
-  a from-scratch Faster R-CNN / Cascade R-CNN head on top of torchvision,
-  behind the app's `image_id` + `image_b64` contract.
-- `adapters/e20_dinov2_pyfunc_adapter.py` — E20's own variant of the above
-  (DINOv2 ViT-B/14-reg4 + SFP + Faster R-CNN specifically).
+  shared by `e15_frcnn_r101`, `e17_cascade_r101_12ep`, `e17x_cascade_r101_25ep`,
+  `e18_frcnn_r101_plus`, `e21a_frcnn_r50`, `e21b_frcnn_r101`, and
+  `e22_dinov3_frcnn`. Implements a ViT + Simple Feature Pyramid (ViTDet-style)
+  backbone option (`family: "vit"`, used by E22's DINOv3 backbone) and a
+  from-scratch Faster R-CNN / Cascade R-CNN head on top of torchvision
+  (`family: "resnet"`, used by the other six), behind the app's `image_id` +
+  `image_b64` contract. One file, config-driven — no new adapter code was
+  written for any of the four most recently added models.
+- `adapters/e20_dinov2_pyfunc_adapter.py` — E20's own earlier, narrower variant
+  of the above (DINOv2 ViT-B/14-reg4 + SFP + Faster R-CNN specifically),
+  logged separately before the shared adapter existed.
 - `configs/<model_id>.json` — the per-model config logged alongside each
   adapter (class names, image size, score threshold, checkpoint SHA-256,
   cascade on/off, etc.) — this is what parameterizes the shared adapter code
   per model.
 - `examples/sample_input.json` — the example payload MLflow logged for the
-  `aerotrust-detector-v1` contract (identical across E15/E17/E17x/E20).
+  `aerotrust-detector-v1` contract (identical across all eight non-YOLO
+  models: E15/E17/E17x/E18/E20/E21A/E21B/E22).
 
 ## `dataset_audit/` — dataset v5 quality evidence
 

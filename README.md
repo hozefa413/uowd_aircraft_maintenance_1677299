@@ -24,26 +24,34 @@ Model Serving endpoint inventory and the training job.
 
 ## Models
 
-8 of 12 tracked model configurations are registered in Unity Catalog and
+All 12 tracked model configurations are registered in Unity Catalog and
 served live:
 
-| Model | Family | Compute |
-|---|---|---|
-| `yolo11n_baseline` | YOLO11n | CPU Small |
-| `e4_yolo11s` | YOLO11s | CPU Small |
-| `e13_yolo26s` | YOLO26s | CPU Small |
-| `e19_yolo26s` | YOLO26s | CPU Small |
-| `e15_frcnn_r101` | Faster R-CNN R101-FPN | GPU Small |
-| `e17_cascade_r101_12ep` | Cascade R-CNN R101-FPN | GPU Small |
-| `e17x_cascade_r101_25ep` | Cascade R-CNN R101-FPN | GPU Small |
-| `e20_dinov2_frcnn` | DINOv2 + SFP + Faster R-CNN | GPU Small |
+| Model | Family | Compute | Accuracy evidence |
+|---|---|---|---|
+| `yolo11n_baseline` | YOLO11n | CPU Small | — |
+| `e4_yolo11s` | YOLO11s | CPU Small | AP50 40.66% |
+| `e13_yolo26s` | YOLO26s | CPU Small | AP50 50.33% |
+| `e19_yolo26s` | YOLO26s | CPU Small | AP50 50.87% |
+| `e15_frcnn_r101` | Faster R-CNN R101-FPN | GPU Small | AP50 59.81% (test) |
+| `e17_cascade_r101_12ep` | Cascade R-CNN R101-FPN | GPU Small | AP50 61.07% (test) |
+| `e17x_cascade_r101_25ep` | Cascade R-CNN R101-FPN | GPU Small | — |
+| `e18_frcnn_r101_plus` | Faster R-CNN R101-FPN (variant) | GPU Small | AP50 58.62% (test) |
+| `e20_dinov2_frcnn` | DINOv2 + SFP + Faster R-CNN | GPU Small | AP50 64.76% (test) |
+| `e21a_frcnn_r50` | Faster R-CNN R50-FPN | GPU Small | **none recorded** |
+| `e21b_frcnn_r101` | Faster R-CNN R101-FPN | GPU Small | **none recorded** |
+| `e22_dinov3_frcnn` | DINOv3 + SFP + Faster R-CNN | GPU Small | AP50 63.91% (val only) |
 
-The remaining 4 (`e18_frcnn_r101_plus`, `e21a_frcnn_r50`, `e21b_frcnn_r101`,
-`e22_dinov3_frcnn`) have checkpoints preserved in MLflow but no verified
-inference adapter yet, and the UI marks them as not selectable.
-
-See [`databricks/README.md`](databricks/README.md) for the full endpoint list
-and how to recreate them.
+`e21a_frcnn_r50` and `e21b_frcnn_r101` have no training metadata anywhere in
+the workspace (confirmed empty experiment folders) — only the raw checkpoints
+exist. They're served because each was independently verified (strict
+`state_dict` load, real forward pass, full MLflow `predict()` smoke test
+through the real inference contract) to be a correctly-loading, functioning
+model, not because any accuracy number for them was found or assumed. No
+accuracy claim is made for either in the app. See
+[`databricks/README.md`](databricks/README.md) for exactly how each of the
+four most recently added models (E18/E21A/E21B/E22) was verified and
+registered, and the full endpoint list.
 
 ## Dataset
 

@@ -1,0 +1,30 @@
+{
+  "num_classes": 7,
+  "class_names": [
+    "Crack",
+    "Dent",
+    "Fastener Damage",
+    "Missing rivet",
+    "Paint-off",
+    "Rupture"
+  ],
+  "anchor_sizes": [
+    [8, 16],
+    [24, 32],
+    [48, 64],
+    [96, 128],
+    [192, 384]
+  ],
+  "image_size": 1280,
+  "size_divisible": 32,
+  "mean": [0.485, 0.456, 0.406],
+  "std": [0.229, 0.224, 0.225],
+  "family": "vit",
+  "timm_name": "hf-hub:timm/vit_base_patch16_dinov3.lvd1689m",
+  "box_nms_thresh": 0.5,
+  "max_det": 300,
+  "default_score_threshold": 0.8,
+  "source_checkpoint_sha256": "30444f7e1f267a5f8639bff58fe7f8403c57561bc38575818d2cc2f474aa5f0e",
+  "adapter_contract": "aerotrust-detector-v1",
+  "note": "Reuses the shared two_stage_pyfunc_adapter.py 'vit' family branch (same ViTSFP + Faster R-CNN head as E20) with a DINOv3 ViT-B/16 backbone pulled from Hugging Face Hub at load time. prefix_tokens (5) is read dynamically from the timm model's num_prefix_tokens attribute, not hardcoded. image_size/eval_size and recipe fields are real, recorded training provenance (summary.json), not inferred."
+}

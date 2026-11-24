@@ -12,7 +12,7 @@
     "metrics": null,
     "serving_endpoint": "aerotrust-yolo11n-baseline",
     "registration": {
-      "first_attempt": "BLOCKED_OR_FAILED \u2014 MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
+      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
       "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
       "run_id": "b8eb3e7a61d347ecab27622bbc9ca39b"
     },
@@ -29,7 +29,7 @@
   },
   {
     "id": "e4_yolo11s",
-    "name": "E4 \u2014 YOLO11s",
+    "name": "E4 — YOLO11s",
     "family": "YOLO",
     "architecture": "YOLO11s",
     "version": "1",
@@ -44,7 +44,7 @@
     },
     "serving_endpoint": "aerotrust-e4-yolo11s",
     "registration": {
-      "first_attempt": "BLOCKED_OR_FAILED \u2014 MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
+      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
       "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
       "run_id": "b2402da5c375449f9dac373a9be86861"
     },
@@ -61,7 +61,7 @@
   },
   {
     "id": "e13_yolo26s",
-    "name": "E13 \u2014 YOLO26s (seed 42)",
+    "name": "E13 — YOLO26s (seed 42)",
     "family": "YOLO",
     "architecture": "YOLO26s",
     "version": "1",
@@ -74,7 +74,7 @@
     },
     "serving_endpoint": "aerotrust-e13-yolo26s",
     "registration": {
-      "first_attempt": "BLOCKED_OR_FAILED \u2014 MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
+      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
       "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
       "run_id": "a44d9b2c096c462c993bd9734ca4778a"
     },
@@ -91,7 +91,7 @@
   },
   {
     "id": "e19_yolo26s",
-    "name": "E19 \u2014 YOLO26s (seed 7)",
+    "name": "E19 — YOLO26s (seed 7)",
     "family": "YOLO",
     "architecture": "YOLO26s",
     "version": "1",
@@ -104,7 +104,7 @@
     },
     "serving_endpoint": "aerotrust-e19-yolo26s",
     "registration": {
-      "first_attempt": "BLOCKED_OR_FAILED \u2014 MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
+      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
       "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
       "run_id": "c1fab47dab4b4e48b9795cd4d52a8e78"
     },
@@ -121,7 +121,7 @@
   },
   {
     "id": "e15_frcnn_r101",
-    "name": "E15 \u2014 Faster R-CNN R101-FPN",
+    "name": "E15 — Faster R-CNN R101-FPN",
     "family": "Two-stage",
     "architecture": "Faster R-CNN ResNet101-FPN",
     "version": "1",
@@ -136,15 +136,15 @@
     },
     "serving_endpoint": "aerotrust-e15-frcnn-r101",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "REGISTERED v1 \u2014 verified adapter (aerotrust-detector-v1): test AP50 59.84% on the locked v5 test, val AP50 59.56% @1024px. Decision support only.",
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v1 — verified adapter (aerotrust-detector-v1): test AP50 59.84% on the locked v5 test, val AP50 59.56% @1024px. Decision support only.",
       "run_id": "bab3dbf8e99e44ddbc2141a492017c47"
     },
     "payload_style": "image_id_b64"
   },
   {
     "id": "e17_cascade_r101_12ep",
-    "name": "E17 \u2014 Cascade R-CNN R101 (12 epochs)",
+    "name": "E17 — Cascade R-CNN R101 (12 epochs)",
     "family": "Two-stage",
     "architecture": "Cascade R-CNN ResNet101-FPN",
     "version": "1",
@@ -159,15 +159,15 @@
     },
     "serving_endpoint": "aerotrust-e17-cascade-r101",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "REGISTERED v1 \u2014 verified adapter (aerotrust-detector-v1): test AP50 60.69% on the locked v5 test, val AP50 60.58% @1024px. Decision support only.",
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v1 — verified adapter (aerotrust-detector-v1): test AP50 60.69% on the locked v5 test, val AP50 60.58% @1024px. Decision support only.",
       "run_id": "809730ea0e8c4bcbb4a40617ee14ca41"
     },
     "payload_style": "image_id_b64"
   },
   {
     "id": "e17x_cascade_r101_25ep",
-    "name": "E17x \u2014 Cascade R-CNN R101 (25 epochs)",
+    "name": "E17x — Cascade R-CNN R101 (25 epochs)",
     "family": "Two-stage",
     "architecture": "Cascade R-CNN ResNet101-FPN",
     "version": "1",
@@ -181,31 +181,36 @@
     "serving_endpoint": "aerotrust-e17x-cascade-r101",
     "registration": {
       "first_attempt": "Not part of the original 11-model experiment catalog; registered later as a longer-training variant of E17.",
-      "retry": "REGISTERED v1 \u2014 verified adapter (aerotrust-detector-v1): test AP50 61.08% on the locked v5 test, val AP50 60.86% @1024px. Decision support only.",
+      "retry": "REGISTERED v1 — verified adapter (aerotrust-detector-v1): test AP50 61.08% on the locked v5 test, val AP50 60.86% @1024px. Decision support only.",
       "run_id": "8209b507d3ba48f58b0bfc854cb19640"
     },
     "payload_style": "image_id_b64"
   },
   {
     "id": "e18_frcnn_r101_plus",
-    "name": "E18 \u2014 Faster R-CNN R101 Plus",
+    "name": "E18 — Faster R-CNN R101 Plus",
     "family": "Two-stage",
     "architecture": "Faster R-CNN ResNet101-FPN variant",
-    "version": null,
-    "registry_name": "aerotrust.ml_models.e18_fasterrcnn_r101_plus",
-    "status": "adapter_required",
-    "ready": false,
+    "version": "3",
+    "registry_name": "aerotrust.ml_models.e18_frcnn_r101_plus",
+    "status": "registered",
+    "ready": true,
     "dataset": "v5",
-    "metrics": null,
-    "serving_endpoint": null,
+    "metrics": {
+      "map50": 58.62,
+      "map5095": null
+    },
+    "serving_endpoint": "aerotrust-e18-frcnn-r101-plus",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "ARTIFACT_LOGGED_ADAPTER_REQUIRED \u2014 checkpoint preserved in MLflow; verified Torch adapter still required."
-    }
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v3 — verified adapter (aerotrust-detector-v1), reusing the same resnet101/Faster R-CNN code path as E15: strict state_dict load + real end-to-end predict() smoke test passed. test AP50 58.62% on the locked v5 test @1280px (from workspace training record, not independently re-evaluated through this app).",
+      "run_id": null
+    },
+    "payload_style": "image_id_b64"
   },
   {
     "id": "e20_dinov2_frcnn",
-    "name": "E20 \u2014 DINOv2 + SFP + Faster R-CNN",
+    "name": "E20 — DINOv2 + SFP + Faster R-CNN",
     "family": "Vision Transformer + Two-stage",
     "architecture": "DINOv2 ViT-B/14-reg4 + SFP + Faster R-CNN",
     "version": "1",
@@ -220,61 +225,70 @@
     },
     "serving_endpoint": "aerotrust-e20-dinov2-frcnn",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "REGISTERED v1 \u2014 verified adapter (aerotrust-detector-v1): test AP50 64.78% on the locked v5 test (fingerprint 2db49819b0ba). Checkpoint sha256 6c3d2e10a289bc29. Default score threshold 0.80 (validation F1). Decision support only.",
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v1 — verified adapter (aerotrust-detector-v1): test AP50 64.78% on the locked v5 test (fingerprint 2db49819b0ba). Checkpoint sha256 6c3d2e10a289bc29. Default score threshold 0.80 (validation F1). Decision support only.",
       "run_id": "9599e1dfe1db46aa902fe19a2a997487"
     },
     "payload_style": "image_id_b64"
   },
   {
     "id": "e21a_frcnn_r50",
-    "name": "E21A \u2014 Faster R-CNN R50-FPN",
+    "name": "E21A — Faster R-CNN R50-FPN",
     "family": "Two-stage",
     "architecture": "Faster R-CNN ResNet50-FPN",
-    "version": null,
-    "registry_name": "aerotrust.ml_models.e21a_fasterrcnn_r50",
-    "status": "adapter_required",
-    "ready": false,
+    "version": "2",
+    "registry_name": "aerotrust.ml_models.e21a_frcnn_r50",
+    "status": "registered",
+    "ready": true,
     "dataset": "v5",
     "metrics": null,
-    "serving_endpoint": null,
+    "serving_endpoint": "aerotrust-e21a-frcnn-r50",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "ARTIFACT_LOGGED_ADAPTER_REQUIRED \u2014 checkpoint preserved in MLflow; verified Torch adapter still required."
-    }
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v2 — no training metadata exists for this checkpoint anywhere in the workspace (confirmed empty experiment folder). Architecture (ResNet50-FPN, non-cascade) taken from the experiment name; the real checkpoint's RPN head shape (3 anchors/level) revealed it uses standard single-scale-per-level anchors, not the project's usual 2-per-level scheme — found by strict state_dict loading, not assumed. No accuracy metric was ever recorded for this checkpoint; none is claimed here.",
+      "run_id": null
+    },
+    "payload_style": "image_id_b64"
   },
   {
     "id": "e21b_frcnn_r101",
-    "name": "E21B \u2014 Faster R-CNN R101-FPN",
+    "name": "E21B — Faster R-CNN R101-FPN",
     "family": "Two-stage",
     "architecture": "Faster R-CNN ResNet101-FPN",
-    "version": null,
-    "registry_name": "aerotrust.ml_models.e21b_fasterrcnn_r101",
-    "status": "adapter_required",
-    "ready": false,
+    "version": "2",
+    "registry_name": "aerotrust.ml_models.e21b_frcnn_r101",
+    "status": "registered",
+    "ready": true,
     "dataset": "v5",
     "metrics": null,
-    "serving_endpoint": null,
+    "serving_endpoint": "aerotrust-e21b-frcnn-r101",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "ARTIFACT_LOGGED_ADAPTER_REQUIRED \u2014 checkpoint preserved in MLflow; verified Torch adapter still required."
-    }
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v2 — no training metadata exists for this checkpoint anywhere in the workspace (confirmed empty experiment folder). Architecture (ResNet101-FPN, non-cascade) taken from the experiment name; same single-scale-per-level anchor scheme discovered for E21A applies here too, confirmed by strict state_dict loading. No accuracy metric was ever recorded for this checkpoint; none is claimed here.",
+      "run_id": null
+    },
+    "payload_style": "image_id_b64"
   },
   {
     "id": "e22_dinov3_frcnn",
-    "name": "E22 \u2014 DINOv3 + SFP + Faster R-CNN",
+    "name": "E22 — DINOv3 + SFP + Faster R-CNN",
     "family": "Vision Transformer + Two-stage",
     "architecture": "DINOv3 ViT-B/16 + SFP + Faster R-CNN",
-    "version": null,
-    "registry_name": "aerotrust.ml_models.e22_dinov3_fasterrcnn",
-    "status": "adapter_required",
-    "ready": false,
+    "version": "2",
+    "registry_name": "aerotrust.ml_models.e22_dinov3_frcnn",
+    "status": "registered",
+    "ready": true,
     "dataset": "v5",
-    "metrics": null,
-    "serving_endpoint": null,
+    "metrics": {
+      "map50": 63.91,
+      "map5095": null
+    },
+    "serving_endpoint": "aerotrust-e22-dinov3-frcnn",
     "registration": {
-      "first_attempt": "BLOCKED \u2014 Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
-      "retry": "ARTIFACT_LOGGED_ADAPTER_REQUIRED \u2014 checkpoint preserved in MLflow; verified Torch adapter still required."
-    }
+      "first_attempt": "BLOCKED — Torch checkpoint needs verified model factory. State-dict keys alone do not define constructor, transforms or postprocessing.",
+      "retry": "REGISTERED v2 — verified adapter (aerotrust-detector-v1), reusing E20's DINOv2/SFP/Faster R-CNN code path with a DINOv3 ViT-B/16 backbone pulled from Hugging Face Hub at load time: strict state_dict load + real end-to-end predict() smoke test passed. Best validation AP50 63.91% @1280px (from workspace training record — no held-out test evaluation was recorded for this checkpoint, only validation).",
+      "run_id": null
+    },
+    "payload_style": "image_id_b64"
   }
 ]

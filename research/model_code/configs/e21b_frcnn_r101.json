@@ -1,0 +1,29 @@
+{
+  "num_classes": 7,
+  "class_names": [
+    "Crack",
+    "Dent",
+    "Fastener Damage",
+    "Missing rivet",
+    "Paint-off",
+    "Rupture"
+  ],
+  "cascade": false,
+  "box_nms_thresh": 0.5,
+  "max_det": 300,
+  "anchor_sizes": [
+    [32],
+    [64],
+    [128],
+    [256],
+    [512]
+  ],
+  "family": "resnet",
+  "arch": "resnet101",
+  "head_v2": false,
+  "image_size": 1024,
+  "default_score_threshold": 0.7,
+  "source_checkpoint_sha256": "31df0a4bf90ecb19b19b5f2c682e00f29c267a620379d6378ab275fc773d54e7",
+  "adapter_contract": "aerotrust-detector-v1",
+  "note": "No training metadata exists for this checkpoint in the workspace (empty experiment folder). anchor_sizes (one scale per FPN level, not the project's usual two) was discovered by strict state_dict loading, not assumed from a sibling config. image_size is inferred from sibling E15/E17 (same dataset/resplit family), not independently verified for this checkpoint."
+}
