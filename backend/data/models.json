@@ -90,36 +90,6 @@
     }
   },
   {
-    "id": "e19_yolo26s",
-    "name": "E19 — YOLO26s (seed 7)",
-    "family": "YOLO",
-    "architecture": "YOLO26s",
-    "version": "1",
-    "registry_name": "aerotrust.ml_models.e19_yolo26s",
-    "status": "registered",
-    "ready": true,
-    "dataset": "v5",
-    "metrics": {
-      "map50": 50.87
-    },
-    "serving_endpoint": "aerotrust-e19-yolo26s",
-    "registration": {
-      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
-      "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
-      "run_id": "c1fab47dab4b4e48b9795cd4d52a8e78"
-    },
-    "app_readiness": {
-      "registry_metadata": "PASS",
-      "signature": "PASS",
-      "model_load": "PASS",
-      "inference": "PASS",
-      "bbox_validation": "PASS",
-      "detections": 10,
-      "reported_latency_ms": 97.01,
-      "status": "READY_FOR_APP_SMOKE_TEST"
-    }
-  },
-  {
     "id": "e15_frcnn_r101",
     "name": "E15 — Faster R-CNN R101-FPN",
     "family": "Two-stage",
@@ -197,8 +167,7 @@
     "ready": true,
     "dataset": "v5",
     "metrics": {
-      "map50": 58.62,
-      "map5095": null
+      "map50": 58.62
     },
     "serving_endpoint": "aerotrust-e18-frcnn-r101-plus",
     "registration": {
@@ -207,6 +176,36 @@
       "run_id": null
     },
     "payload_style": "image_id_b64"
+  },
+  {
+    "id": "e19_yolo26s",
+    "name": "E19 — YOLO26s (seed 7)",
+    "family": "YOLO",
+    "architecture": "YOLO26s",
+    "version": "1",
+    "registry_name": "aerotrust.ml_models.e19_yolo26s",
+    "status": "registered",
+    "ready": true,
+    "dataset": "v5",
+    "metrics": {
+      "map50": 50.87
+    },
+    "serving_endpoint": "aerotrust-e19-yolo26s",
+    "registration": {
+      "first_attempt": "BLOCKED_OR_FAILED — MLflow pyfunc cloudpickle serialization failed (\"cannot pickle '_Classes' object\"); required code-based logging instead of class-instance logging.",
+      "retry": "REGISTERED v1 after switching to MLflow models-from-code logging.",
+      "run_id": "c1fab47dab4b4e48b9795cd4d52a8e78"
+    },
+    "app_readiness": {
+      "registry_metadata": "PASS",
+      "signature": "PASS",
+      "model_load": "PASS",
+      "inference": "PASS",
+      "bbox_validation": "PASS",
+      "detections": 10,
+      "reported_latency_ms": 97.01,
+      "status": "READY_FOR_APP_SMOKE_TEST"
+    }
   },
   {
     "id": "e20_dinov2_frcnn",
@@ -280,8 +279,7 @@
     "ready": true,
     "dataset": "v5",
     "metrics": {
-      "map50": 63.91,
-      "map5095": null
+      "map50": 63.91
     },
     "serving_endpoint": "aerotrust-e22-dinov3-frcnn",
     "registration": {
