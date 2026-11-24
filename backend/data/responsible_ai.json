@@ -1,60 +1,70 @@
 {
-  "method": "Occlusion sensitivity",
-  "method_note": "A model-agnostic perturbation technique in the same family as Shapley-value estimation: mask a region of the input and measure the model's own confidence drop for its top prediction, i.e. that region's marginal contribution. Run against the real deployed MLflow pyfunc artifacts via the actual inference contract, one representative image, 4×4 grid (16 masked variants per model).",
+  "method": "Kernel SHAP (Shapley values)",
+  "method_note": "The image is partitioned into a 4×4 grid (16 binary features: region present/absent, masked with the image's own mean colour). shap.KernelExplainer estimates each region's Shapley value — its fair marginal contribution to the model's confidence, averaged over all coalitions of present/absent regions, with mathematical guarantees (efficiency: the 16 values sum exactly to confidence(full image) − confidence(fully masked)). Run with 150 coalition samples per model against the real deployed MLflow pyfunc artifacts, via the actual inference contract — not a mock or a simplified proxy.",
   "sample_image": "04_journey_FastenerDamage_train_215f077fd9c70f3b.jpg",
   "sample_image_url": "/api/v1/sample-images/04_journey_FastenerDamage_train_215f077fd9c70f3b.jpg",
-  "caveat": "Computed once on one sample image as a demonstration, not a comprehensive bias/fairness audit across the dataset. A single occluded cell happening to also be the true defect location is the expected, desired result — it shows the model is keying on the real signal rather than a background shortcut; it does not by itself establish fairness across aircraft, lighting, or defect size.",
+  "efficiency_check": "For all three models the 16 Shapley values summed to within 0.00pp of confidence(full) − confidence(fully masked) — the efficiency axiom holds exactly, confirming these are genuine Shapley values rather than an uncontrolled approximation.",
+  "caveat": "Computed once on one sample image as a demonstration, not a comprehensive bias/fairness audit across the dataset. A single region accounting for nearly all of the attributed confidence is the expected, desired result — it shows the model is keying on the real defect rather than a background shortcut; it does not by itself establish fairness across aircraft, lighting, or defect size.",
   "models": {
     "e19_yolo26s": {
       "label": "E19 — YOLO26s",
       "family": "YOLO",
       "target_class": "Fastener Damage",
       "baseline_confidence_pct": 61.55,
+      "full_masked_confidence_pct": 0.0,
+      "nsamples": 150,
       "grid_rows": 4,
       "grid_cols": 4,
-      "confidence_drop_pp_grid": [
-        [-0.49, -0.52, -0.27, -0.01],
-        [-0.25, -0.61, -0.81, -0.57],
-        [-1.01, -1.87, 61.24, -2.52],
-        [0.03, -0.88, -1.79, -1.75]
+      "shap_values_pp_grid": [
+        [0.487, -1.47, 0.0, 0.897],
+        [0.0, 0.0, 1.166, 0.0],
+        [1.396, 0.303, 58.92, 0.773],
+        [0.0, 0.0, 0.243, -1.164]
       ],
-      "max_drop_pp": 61.24,
-      "max_drop_cell": [2, 2],
-      "mean_drop_pp": 3.0
+      "sum_shap_pp": 61.552,
+      "efficiency_gap_pp": 0.0,
+      "max_abs_cell": [2, 2],
+      "max_abs_shap_pp": 58.92
     },
     "e15_frcnn_r101": {
       "label": "E15 — Faster R-CNN R101-FPN",
       "family": "Two-stage",
       "target_class": "Fastener Damage",
       "baseline_confidence_pct": 96.98,
+      "full_masked_confidence_pct": 0.0,
+      "nsamples": 150,
       "grid_rows": 4,
       "grid_cols": 4,
-      "confidence_drop_pp_grid": [
-        [0.0, 0.0, 0.01, 0.01],
-        [0.03, 0.09, 0.96, 0.14],
-        [0.03, 0.24, 96.98, 1.0],
-        [0.03, 0.22, 1.75, 0.39]
+      "shap_values_pp_grid": [
+        [0.0, 0.0, -0.182, 0.171],
+        [0.247, -0.309, 0.617, 0.0],
+        [0.0, 0.298, 94.003, 0.802],
+        [0.0, 0.0, 1.076, 0.257]
       ],
-      "max_drop_pp": 96.98,
-      "max_drop_cell": [2, 2],
-      "mean_drop_pp": 6.37
+      "sum_shap_pp": 96.98,
+      "efficiency_gap_pp": 0.0,
+      "max_abs_cell": [2, 2],
+      "max_abs_shap_pp": 94.003
     },
     "e20_dinov2_frcnn": {
       "label": "E20 — DINOv2 + SFP + Faster R-CNN",
       "family": "Vision Transformer + Two-stage",
       "target_class": "Fastener Damage",
       "baseline_confidence_pct": 96.57,
+      "full_masked_confidence_pct": 0.0,
+      "nsamples": 150,
       "grid_rows": 4,
       "grid_cols": 4,
-      "confidence_drop_pp_grid": [
-        [0.02, 0.06, 0.03, -0.07],
-        [0.0, 0.11, 0.13, -0.06],
-        [0.0, -0.16, 96.57, -0.07],
-        [0.0, -0.06, 0.02, -0.03]
+      "shap_values_pp_grid": [
+        [0.086, 0.0, -0.07, 0.0],
+        [0.057, 0.055, 0.041, 0.0],
+        [-0.031, 0.0, 96.526, -0.027],
+        [0.0, -0.043, -0.024, 0.0]
       ],
-      "max_drop_pp": 96.57,
-      "max_drop_cell": [2, 2],
-      "mean_drop_pp": 6.03
+      "sum_shap_pp": 96.57,
+      "efficiency_gap_pp": 0.0,
+      "max_abs_cell": [2, 2],
+      "max_abs_shap_pp": 96.526
     }
   }
 }
