@@ -207,6 +207,7 @@ button,input,select{font:inherit}
 .status{font:700 10.35px 'DM Mono';letter-spacing:.5px;padding:6px 8px;border-radius:20px}
 .status.green{color:var(--ok);background:var(--ok-soft)}
 .status.amber{color:var(--warn);background:var(--warn-soft)}
+.status.muted{color:var(--text-3);background:var(--surface-3)}
 .modelcard h3{font:800 14.95px Manrope;margin:14px 0 5px;color:var(--text)}
 .modelcard>p{font-size:11.5px;color:var(--text-2);margin:0}
 .modelmeta{display:flex;gap:8px;margin:12px 0}

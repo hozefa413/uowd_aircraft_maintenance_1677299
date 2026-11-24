@@ -60,6 +60,44 @@
     }
   },
   {
+    "id": "e5_dinov2_vits14_frcnn",
+    "name": "E5 — DINOv2 ViT-S/14 + Faster R-CNN",
+    "family": "Vision Transformer + Two-stage",
+    "architecture": "DINOv2 ViT-S/14 + Multi-scale FPN + Faster R-CNN",
+    "version": null,
+    "registry_name": null,
+    "status": "superseded",
+    "ready": false,
+    "dataset": "E7 bundle / dataset lineage v2 (8,446 train images)",
+    "metrics": {
+      "val_map50": 31.61
+    },
+    "serving_endpoint": null,
+    "registration": {
+      "first_attempt": "Early exploratory DINOv2 backbone run — ViT-S/14 (facebook/dinov2-small), 5 epochs, multi-scale FPN + Faster R-CNN head, dataset lineage v2.",
+      "retry": "SUPERSEDED — never registered to Unity Catalog. E20 repeated this approach with a larger ViT-B/14-reg4 backbone on the current locked v5 dataset and reached 64.76% test AP50, vs this run's 31.61% best validation AP50 (no test split was evaluated for this run). Kept in the record as the real earlier attempt, not hidden."
+    }
+  },
+  {
+    "id": "e6_dinov3_vits16_frcnn",
+    "name": "E6 — DINOv3 ViT-S/16 + Faster R-CNN",
+    "family": "Vision Transformer + Two-stage",
+    "architecture": "DINOv3 ViT-S/16 + Faster R-CNN",
+    "version": null,
+    "registry_name": null,
+    "status": "superseded",
+    "ready": false,
+    "dataset": "E7 bundle / dataset lineage v2 (8,446 train images)",
+    "metrics": {
+      "val_map50": 35.31
+    },
+    "serving_endpoint": null,
+    "registration": {
+      "first_attempt": "Early exploratory DINOv3 backbone run — ViT-S/16 (facebook/dinov3-vits16-pretrain-lvd1689m), 20 epochs, Faster R-CNN head, dataset lineage v2.",
+      "retry": "SUPERSEDED — never registered to Unity Catalog. E22 repeated this approach with a larger ViT-B/16 backbone on the current locked v5 dataset and reached 63.91% validation AP50, vs this run's 35.31% best validation AP50. Kept in the record as the real earlier attempt, not hidden."
+    }
+  },
+  {
     "id": "e13_yolo26s",
     "name": "E13 — YOLO26s (seed 42)",
     "family": "YOLO",
