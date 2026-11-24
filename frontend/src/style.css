@@ -386,3 +386,30 @@ button,.btn,.iconbtn,.mobilemenu,.navitem,.minicard{transition:background .18s e
 .warmup-row.fail{color:var(--warn)}
 .warmup-row b{color:var(--text);font-weight:600;flex:1}
 .warmup-row small{color:inherit;white-space:nowrap}
+
+.comparepicker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.comparechip{display:flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);padding:8px 13px;border-radius:20px;font-size:11.5px;font-weight:500;cursor:pointer;transition:.18s ease}
+.comparechip-dot{width:8px;height:8px;border-radius:50%;background:var(--chip-accent);transition:.18s ease}
+.comparechip:hover{border-color:var(--border-strong);background:var(--surface-2)}
+.comparechip.on{background:var(--chip-accent);border-color:var(--chip-accent);color:#fff}
+.comparechip.on .comparechip-dot{background:#fff}
+.comparegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px;margin-top:18px}
+.comparecard{border:1px solid var(--border);border-top:3px solid var(--chip-accent);border-radius:13px;padding:13px;background:var(--surface);display:flex;flex-direction:column;gap:9px;min-height:130px}
+.comparecard.done{animation:cardPop .45s cubic-bezier(.34,1.3,.64,1)}
+.comparecard.error{border-top-color:var(--danger)}
+@keyframes cardPop{0%{opacity:0;transform:scale(.9) translateY(6px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.comparecard-head{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11.5px}
+.comparecard-head b{color:var(--text);font-weight:700}
+.leader-crown{color:#D4A017;animation:crownBounce .6s ease}
+@keyframes crownBounce{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.3) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
+.comparecard-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--text-3);padding:22px 0;flex:1;text-align:center}
+.comparecard-visual{position:relative;border-radius:8px;overflow:hidden;background:var(--surface-2);aspect-ratio:4/3}
+.comparecard-visual img{width:100%;height:100%;object-fit:contain}
+.comparecard-result{display:flex;align-items:center;justify-content:space-between;font-size:12.65px}
+.comparecard-result b{color:var(--text)}
+.comparecard-result span{font-weight:700;color:var(--chip-accent)}
+.comparecard-result.muted{color:var(--text-3)}
+.comparecard-result.muted span{color:var(--text-3);font-weight:500;font-size:11px}
+.comparecard-meta{color:var(--text-3);font-size:9.5px}
+.bbox.mini{border-width:1.5px}
+.bbox.mini b{display:none}
