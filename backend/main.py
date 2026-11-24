@@ -39,6 +39,7 @@ DATASETS = _load("datasets.json")
 EXPERIMENTS = _load("experiments.json")
 PROJECT_JOURNEY = _load("project_journey.json")
 PARAMETER_IMPACT = _load("parameter_impact.json")
+RESPONSIBLE_AI = _load("responsible_ai.json")
 
 MODEL_CACHE = {}
 MODEL_CACHE_LOCK = threading.Lock()
@@ -98,6 +99,11 @@ def project_journey():
 @app.get("/api/v1/parameter-impact")
 def parameter_impact():
     return PARAMETER_IMPACT
+
+
+@app.get("/api/v1/responsible-ai")
+def responsible_ai():
+    return RESPONSIBLE_AI
 
 
 STUDIO_JOB_ID = int(os.getenv("AEROTRUST_STUDIO_JOB_ID", "470973301608665"))
